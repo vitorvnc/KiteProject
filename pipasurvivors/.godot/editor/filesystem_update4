@@ -1,0 +1,7 @@
+res://Enemy/enemy.tscn
+res://Levels/first_level.tres
+res://Levels/first_shader.tres
+res://Levels/first_level.tscn
+res://Player/Pipa.tscn
+res://Player/pipa.gd
+res://Enemy/enemy.gd

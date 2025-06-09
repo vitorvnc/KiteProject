@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1la2v8gru4bp"]
+
+[ext_resource type="Script" uid="uid://g2dqvewerx1" path="res://Player/pipa.gd" id="1_1hqn8"]
+[ext_resource type="Texture2D" uid="uid://bmjeenklxqsn7" path="res://resources/sprites/pipaTest-Sheet.png" id="1_l8h54"]
+[ext_resource type="Texture2D" uid="uid://mu148yjaj4sv" path="res://resources/sprites/rabiolaTest.png" id="3_of0xr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ntmi"]
+size = Vector2(21.9203, 21.9203)
+
+[node name="Pipa" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(2, 2)
+motion_mode = 1
+slide_on_ceiling = false
+script = ExtResource("1_1hqn8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="SpritePipa" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_l8h54")
+
+[node name="CollisionPipa" type="CollisionShape2D" parent="."]
+light_mask = 2
+rotation = 0.785398
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_4ntmi")
+debug_color = Color(0, 0.549947, 0.924243, 0.42)
+
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="BodyRabiola" type="CharacterBody2D" parent="."]
+position = Vector2(-1, 24)
+motion_mode = 1
+
+[node name="SpriteRabiola" type="Sprite2D" parent="BodyRabiola"]
+texture_filter = 1
+position = Vector2(1, 24.5)
+texture = ExtResource("3_of0xr")
+
+[node name="walkAnimationTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true

@@ -1,0 +1,55 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://coenadu7wk88b"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nbxf0"]
+noise_type = 4
+seed = 8
+frequency = 0.0105
+fractal_lacunarity = 3.69
+fractal_weighted_strength = 0.65
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_en6av"]
+width = 1024
+seamless = true
+noise = SubResource("FastNoiseLite_nbxf0")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_4rthd"]
+expanded_output_ports = [0]
+texture = SubResource("NoiseTexture2D_en6av")
+
+[sub_resource type="VisualShaderNodeColorOp" id="VisualShaderNodeColorOp_nbxf0"]
+default_input_values = [0, Vector3(0.5, 0, 0), 1, Vector3(0.44, -0.195, 0.675)]
+operator = 3
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D tex_frg_4;
+
+
+
+void fragment() {
+// Texture2D:4
+	vec4 n_out4p0 = texture(tex_frg_4, UV);
+
+
+// ColorOp:5
+	vec3 n_in5p1 = vec3(0.44000, -0.19500, 0.67500);
+	vec3 n_out5p0 = max(vec3(n_out4p0.xyz), n_in5p1);
+
+
+// Output:0
+	COLOR.rgb = n_out5p0;
+	COLOR.a = n_out5p0.x;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(960, 180)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_4rthd")
+nodes/fragment/4/position = Vector2(100, 120)
+nodes/fragment/5/node = SubResource("VisualShaderNodeColorOp_nbxf0")
+nodes/fragment/5/position = Vector2(580, 80)
+nodes/fragment/connections = PackedInt32Array(4, 0, 5, 0, 5, 0, 0, 0, 5, 0, 0, 1)

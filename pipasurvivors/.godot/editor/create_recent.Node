@@ -1,0 +1,14 @@
+AnimationPlayer
+AnimatedSprite2D
+Sprite2D
+CharacterBody2D
+Timer
+CollisionShape2D
+Area2D
+TileMapLayer
+ParallaxBackground
+Node
+StaticBody2D
+TileMap
+Camera2D
+ColorRect
