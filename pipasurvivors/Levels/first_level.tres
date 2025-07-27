@@ -3,12 +3,14 @@
 [sub_resource type="Gradient" id="Gradient_m7pqb"]
 interpolation_mode = 2
 interpolation_color_space = 1
-offsets = PackedFloat32Array(0, 0.557522, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.380531, 0.380531, 0.380531, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.55132, 0.557522, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.461183, 0.461183, 0.461183, 1, 0.380531, 0.380531, 0.380531, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_m7pqb"]
-seed = 20
-frequency = 0.0087
+noise_type = 3
+seed = 109
+frequency = 0.0117
+offset = Vector3(58.95, 0, 0)
 fractal_gain = 0.65
 fractal_weighted_strength = 1.0
 
@@ -17,13 +19,11 @@ color_ramp = SubResource("Gradient_m7pqb")
 noise = SubResource("FastNoiseLite_m7pqb")
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_8vss8"]
-output_port_for_preview = 4
-expanded_output_ports = [0]
 texture = SubResource("NoiseTexture2D_m7pqb")
 
 [sub_resource type="VisualShaderNodeColorOp" id="VisualShaderNodeColorOp_ox6vs"]
 output_port_for_preview = 0
-default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(0.74, 2.005, 200.025)]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(0.52, 0.955, 20.42)]
 expanded_output_ports = [0]
 operator = 3
 
@@ -41,7 +41,7 @@ void fragment() {
 
 
 // ColorOp:3
-	vec3 n_in3p1 = vec3(0.74000, 2.00500, 200.02499);
+	vec3 n_in3p1 = vec3(0.52000, 0.95500, 20.42000);
 	vec3 n_out3p0 = max(vec3(n_out2p0.xyz), n_in3p1);
 
 

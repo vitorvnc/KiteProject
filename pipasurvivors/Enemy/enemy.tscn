@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://6obrgp118fsw"]
+[gd_scene load_steps=16 format=3 uid="uid://6obrgp118fsw"]
 
 [ext_resource type="Script" uid="uid://dh3j44x0puei8" path="res://Enemy/enemy.gd" id="1_px1sc"]
 [ext_resource type="Texture2D" uid="uid://cg3d2obdo48it" path="res://resources/sprites/OnlyDrone-Sheet.png" id="2_px1sc"]
 [ext_resource type="Texture2D" uid="uid://3r3n14gy4ia1" path="res://resources/sprites/FireOnly-Sheet.png" id="3_am0pq"]
+[ext_resource type="PackedScene" uid="uid://exgw1ctdddun" path="res://Utility/hurt_box.tscn" id="4_eqilm"]
+[ext_resource type="PackedScene" uid="uid://dw02vqexp28fh" path="res://Utility/hit_box.tscn" id="5_ncf7h"]
+[ext_resource type="AudioStream" uid="uid://cwshg20tglvi0" path="res://resources/audio/enemy/Retro Impact Punch Hurt 01.wav" id="6_m6jha"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_px1sc"]
 radius = 8.5
@@ -45,6 +48,21 @@ _data = {
 &"walk": SubResource("Animation_px1sc")
 }
 
+[sub_resource type="Animation" id="Animation_ncf7h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FogoSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_eqilm"]
 resource_name = "fogoExplode"
 loop_mode = 1
@@ -61,28 +79,21 @@ tracks/0/keys = {
 "values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(3, 0), Vector2i(2, 0), Vector2i(1, 0), Vector2i(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_ncf7h"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FogoSprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m6jha"]
 _data = {
 &"RESET": SubResource("Animation_ncf7h"),
 &"fogoExplode": SubResource("Animation_eqilm")
 }
 
-[node name="enemy_drone" type="CharacterBody2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ncf7h"]
+radius = 17.0
+height = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m6jha"]
+radius = 15.0
+height = 38.0
+
+[node name="enemy_drone" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_px1sc")
@@ -120,3 +131,32 @@ hframes = 5
 libraries = {
 &"": SubResource("AnimationLibrary_m6jha")
 }
+
+[node name="HurtBox" parent="." instance=ExtResource("4_eqilm")]
+collision_layer = 4
+collision_mask = 4
+HurtBoxType = 1
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ncf7h")
+debug_color = Color(0.905, 0, 0.748, 0.381)
+
+[node name="HitBox" parent="." instance=ExtResource("5_ncf7h")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_m6jha")
+debug_color = Color(0, 0.289, 0.75, 0.392)
+
+[node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_m6jha")
+volume_db = -8.851
+pitch_scale = 0.51
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]

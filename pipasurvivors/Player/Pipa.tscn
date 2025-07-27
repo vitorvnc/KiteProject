@@ -1,28 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1la2v8gru4bp"]
+[gd_scene load_steps=9 format=3 uid="uid://b1la2v8gru4bp"]
 
 [ext_resource type="Script" uid="uid://g2dqvewerx1" path="res://Player/pipa.gd" id="1_1hqn8"]
-[ext_resource type="Texture2D" uid="uid://bmjeenklxqsn7" path="res://resources/sprites/pipaTest-Sheet.png" id="1_l8h54"]
+[ext_resource type="Resource" uid="uid://dsm51ep1luk5c" path="res://Utility/weapons_db.tres" id="2_gknts"]
+[ext_resource type="Texture2D" uid="uid://ki2qv0twyqxs" path="res://resources/sprites/KiteV3-Sheet.png" id="3_gknts"]
 [ext_resource type="Texture2D" uid="uid://mu148yjaj4sv" path="res://resources/sprites/rabiolaTest.png" id="3_of0xr"]
+[ext_resource type="PackedScene" uid="uid://exgw1ctdddun" path="res://Utility/hurt_box.tscn" id="4_6nheh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ntmi"]
-size = Vector2(21.9203, 21.9203)
+size = Vector2(19.9758, 19.9758)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gknts"]
+size = Vector2(42.7241, 41.5687)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6nheh"]
+radius = 620.001
 
 [node name="Pipa" type="CharacterBody2D" groups=["player"]]
-scale = Vector2(2, 2)
+scale = Vector2(1.2, 1.2)
 motion_mode = 1
 slide_on_ceiling = false
 script = ExtResource("1_1hqn8")
+hp = null
+movement_speed = null
+rotation_speed = null
+upper_limit = null
+lower_limit = null
+weapons_db = ExtResource("2_gknts")
+starting_weapons = null
+attack_cooldown = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="SpritePipa" type="Sprite2D" parent="."]
 texture_filter = 1
 texture_repeat = 1
-scale = Vector2(2, 2)
-texture = ExtResource("1_l8h54")
+scale = Vector2(0.96875, 0.96875)
+texture = ExtResource("3_gknts")
 
 [node name="CollisionPipa" type="CollisionShape2D" parent="."]
+visible = false
 light_mask = 2
+texture_filter = 2
+position = Vector2(-7.7486e-08, -1.66667)
 rotation = 0.785398
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_4ntmi")
@@ -36,7 +55,7 @@ position = Vector2(-1, 24)
 motion_mode = 1
 
 [node name="SpriteRabiola" type="Sprite2D" parent="BodyRabiola"]
-texture_filter = 1
+texture_filter = 2
 position = Vector2(1, 24.5)
 texture = ExtResource("3_of0xr")
 
@@ -44,3 +63,56 @@ texture = ExtResource("3_of0xr")
 unique_name_in_owner = true
 wait_time = 0.2
 one_shot = true
+
+[node name="HurtBox" parent="." instance=ExtResource("4_6nheh")]
+visible = false
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(-2.1855e-08, -1.66667)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_gknts")
+debug_color = Color(0.800802, 0, 0.275992, 0.42)
+
+[node name="AttackSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(-3.33333, -45.8333)
+
+[node name="WhipPosition" type="Marker2D" parent="."]
+position = Vector2(-56.6667, -63.3333)
+
+[node name="WavePosition" type="Marker2D" parent="."]
+z_index = -1
+position = Vector2(0, 3.8147e-06)
+
+[node name="Attack" type="Node2D" parent="."]
+
+[node name="SphereTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 1.5
+
+[node name="SphereAttackTimer" type="Timer" parent="Attack/SphereTimer"]
+unique_name_in_owner = true
+wait_time = 0.075
+
+[node name="EnemyDetectionArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
+shape = SubResource("CircleShape2D_6nheh")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+[connection signal="timeout" from="Attack/SphereTimer" to="." method="_on_sphere_timer_timeout"]
+[connection signal="timeout" from="Attack/SphereTimer/SphereAttackTimer" to="." method="_on_sphere_attack_timer_timeout"]
+[connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
+[connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+
+[editable path="HurtBox"]
