@@ -1,6 +1,8 @@
-res://Attacks
-res://Enemy
 res://Utility
+res://resources/Font
+res://Enemy
+res://Objects
+res://Attacks
 res://Levels
 res://Player
 res://Utility/Camera

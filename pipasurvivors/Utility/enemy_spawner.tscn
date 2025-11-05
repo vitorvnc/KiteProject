@@ -4,18 +4,18 @@
 [ext_resource type="Script" uid="uid://b52gp36wo8n6y" path="res://Utility/spawn_info.gd" id="2_5yyhq"]
 [ext_resource type="PackedScene" uid="uid://6obrgp118fsw" path="res://Enemy/enemy.tscn" id="3_nn1td"]
 
-[sub_resource type="Resource" id="Resource_5yyhq"]
+[sub_resource type="Resource" id="Resource_2wm2k"]
 script = ExtResource("2_5yyhq")
 time_start = 0
-time_end = 60
+time_end = 80
 enemy = ExtResource("3_nn1td")
-enemy_num = 1
+enemy_num = 10
 enemy_spawn_delay = 1
 metadata/_custom_type_script = "uid://b52gp36wo8n6y"
 
 [node name="EnemySpawner" type="Node2D"]
 script = ExtResource("1_v14hi")
-spawns = Array[ExtResource("2_5yyhq")]([SubResource("Resource_5yyhq")])
+spawns = Array[ExtResource("2_5yyhq")]([SubResource("Resource_2wm2k")])
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

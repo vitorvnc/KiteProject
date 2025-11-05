@@ -75,7 +75,7 @@ func get_knockback_direction() -> Vector2:
 	return Vector2.UP.rotated(get_parent().rotation)
 	
 func _on_body_entered(body: Node2D) -> void:
-	print('entrou whip body')
+	#print('entrou whip body')
 	if body.is_in_group("enemy") and not hit_enemies.has(body):
 		hit_enemies.append(body)
 		# Aplica dano

@@ -13,45 +13,48 @@ extends CharacterBody2D
 
 var experience = 0
 var experience_level = 1
-var collected experience = 0
+var collected_experience = 0
 
-#ATTACK
+#GUI
+@onready var expBar = get_node("%ExperienceBar")
+@onready var lblLevel = get_node("%lbl_level")
+@onready var levelPanel = get_node("%LevelUp")
+@onready var upgradeOptions = get_node("%UpgradeOptions")
+@onready var itemOptions = preload("res://Utility/item_option.tscn")
+@onready var sndLevelUp = get_node("%snd_levelup")
+
+#ATTACK E WEAPONS
+@export var attack_spawn_point: Marker2D  # Ponto de spawn dos ataques Whip
 @export var weapons_db: WeaponDatabase
-@export var starting_weapons: Array[String] = ['whipatk', 'waveatk','sphereatk']  # IDs das armas iniciais
+@export var starting_weapons: Array[Dictionary] = [  # IDs e levels das armas iniciais
+	{'id': 'sphereatk_1', 'level': 1}
+]
 var active_attacks: Array[Node] = []
-var available_weapons: Array[Dictionary] = []  # {data: WeaponData, timer: Timer}
+var collected_weapons: Array[Dictionary] = []  # {data: WeaponData, level: x, timer: Timer}
 
-@export var attack_spawn_point: Marker2D  # Ponto de spawn dos ataques
+var collectedIdsCompareStringHist: Array[String] = []
+
+#UPGRADES
+var collected_upgrades = []
+var upgrade_options = []
+var armor = 0
+var speed = 0
+var spell_cooldown = 0
+var speel_size = 0
+var additional_attacks = 0
+
+#ENEMY
+var enemy_close = []
 var target_enemy: Node2D = null
 
-#enemyRelated
-var enemy_close = []
 
-@export var attack_cooldown: float = 5
 
 
 func _ready():
-	print("=== INICIALIZANDO ===")
+	set_expbar(experience, calculate_experiencecap())
 	attack_spawn_point = $AttackSpawnPoint
-	print("Spawn point:", attack_spawn_point)
-		 # Debug do weapon_data
-		
-	var test_data = weapons_db.get_weapon_by_id("whipatk")
-	if test_data:
-		print("Teste WeaponData - ID:", test_data.id)
-		print("Cena do ataque:", test_data.attack_scene)
-	else:
-		print("Erro: Não encontrou whipatk no DB")
-		
 	var weapon = load("res://Utility/weapons_db.tres::Resource_mqtek")
-	print("Cooldown do novo arquivo: ", weapon.cooldown)
-	
-	if test_data:
-		print("ID: ", test_data.id)
-		print("Cooldown: ", test_data.cooldown)
-		print("Caminho do Resource: ", test_data.resource_path)
-	else:
-		print("Arma não encontrada")
+
 	load_starting_weapons()
 	
 
@@ -113,10 +116,10 @@ func set_attacks_active(active: bool):
 		attack.monitorable = active
 		
 func load_starting_weapons():
-	for weapon_id in starting_weapons:
-		
+	for i in starting_weapons:
+		var weapon_id = i['id']
 		var weapon_data = weapons_db.get_weapon_by_id(weapon_id)
-		print('vai pegar wd pra entrar no add: ', weapon_data)
+		#print('vai pegar wd pra entrar no add: ', weapon_data)
 		if weapon_data:
 			add_weapon(weapon_data)
 
@@ -142,12 +145,12 @@ func add_weapon(weapon_data: WeaponData):
 	add_child(timer)
 	timer.start()
 	
-	available_weapons.append({
+	collected_weapons.append({
 		"data": weapon_data,
 		"timer": timer
 	})
 	
-	print("Timer criado para ", weapon_data.id, "com cooldown ", weapon_data.cooldown)
+	#print("Timer criado para ", weapon_data.id, "com cooldown ", weapon_data.cooldown)
 	
 func upgrade_weapon(weapon_id: String):
 	var weapon_data = weapons_db.get_weapon_by_id(weapon_id)
@@ -156,27 +159,18 @@ func upgrade_weapon(weapon_id: String):
 		
 	# Encontra a arma existente
 	var weapon_index = -1
-	for i in range(available_weapons.size()):
-		if available_weapons[i]["data"].id.begins_with(weapon_id.split("_")[0]):
+	for i in range(collected_weapons.size()):
+		if collected_weapons[i]["data"].id.begins_with(weapon_id.split("_")[0]):
 			weapon_index = i
 			break
 	
 	# Se encontrou, remove a versão antiga
 	if weapon_index >= 0:
-		available_weapons[weapon_index]["timer"].queue_free()
-		available_weapons.remove_at(weapon_index)
+		collected_weapons[weapon_index]["timer"].queue_free()
+		collected_weapons.remove_at(weapon_index)
 		
 	# Adiciona a nova versão
 	add_weapon(weapon_data)
-
-# Para adicionar uma nova arma
-func on_pickup_item(weapon_id: String):
-	var weapon_data = weapons_db.get_weapon_by_id(weapon_id)
-	if weapon_data:
-		if weapon_data.level == 1:
-			add_weapon(weapon_data)
-		else:
-			upgrade_weapon(weapon_id)
 
 func get_random_target():
 	if enemy_close.size() > 0:
@@ -239,3 +233,103 @@ func _spawn_weapon_attack(weapon_id: String):
 			attack_instance.setup(attack_spawn_point.global_position, target_pos, weapon_data)
 		
 #Attack NOVO END
+
+
+func _on_grab_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group("loot"):
+		area.target = self
+
+
+func _on_collect_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group("loot"):
+		var gem_exp = area.collect()
+		calculate_experience(gem_exp)
+
+func calculate_experience(gem_exp):
+	var exp_required = calculate_experiencecap()
+	collected_experience += gem_exp
+	if experience + collected_experience >= exp_required: #level up
+		collected_experience -= exp_required-experience 
+		experience_level += 1
+		experience = 0
+		exp_required = calculate_experiencecap()
+		levelup()
+		#calculate_experience(0)
+	else:
+		experience += collected_experience
+		collected_experience = 0
+	
+	set_expbar(experience, exp_required)
+		
+func calculate_experiencecap():
+	var exp_cap = experience_level
+	if experience_level < 20:
+		exp_cap = experience_level*5
+	elif experience_level <40:
+		exp_cap = 95 * (experience_level-19)*8
+	else:
+		exp_cap = 255 + (experience_level-39)*12
+	return exp_cap
+
+func set_expbar(set_value = 1, set_max_value = 100):
+	expBar.value = set_value
+	expBar.max_value = set_max_value
+	
+func levelup():
+	sndLevelUp.play()
+	lblLevel.text = str("Level: ", experience_level)
+	var tween = levelPanel.create_tween()
+	tween.tween_property(levelPanel, "position", Vector2(260,500), 0.2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
+	tween.play()
+	levelPanel.visible = true
+	var options = 0
+	var optionsmax = 3
+	while options < optionsmax:
+		var option_choice = itemOptions.instantiate()
+		option_choice.item = get_random_item()
+		upgradeOptions.add_child(option_choice)
+		options += 1
+	get_tree().paused = true
+
+func upgrade_character(upgrade):
+	var option_children = upgradeOptions.get_children()
+	for i in option_children:
+		i.queue_free()
+	upgrade_options.clear()
+	collected_upgrades.append(upgrade)
+	upgrade_weapon(upgrade.id)
+	levelPanel.visible = false
+	levelPanel.position = Vector2(800,50)
+	get_tree().paused = false
+	calculate_experience(0)
+	
+func get_random_item():
+	var dblist = []
+	var collectedIds: Array[String] = []
+	
+	for c in collected_weapons:
+		collectedIds.append(c.data.id)
+		if not c.data.id in collectedIdsCompareStringHist:
+			collectedIdsCompareStringHist.append(c.data.id)
+	
+	for i in weapons_db.weapons:
+		if i.id in collectedIdsCompareStringHist: #Encontrar upgrades ja coletados
+			pass
+		elif i in upgrade_options: #Se o upgrade ja for uma opcao
+			pass
+		elif i.prerequisite_ids.size() > 0: #checando prerequisitos
+			for n in i.prerequisite_ids:
+				if not n in collectedIdsCompareStringHist:
+					pass
+				else:
+					dblist.append(i)
+					collectedIdsCompareStringHist.append(i)
+		else:
+			dblist.append(i)
+			collectedIdsCompareStringHist.append(i)
+	if dblist.size() > 0:
+		var randomitem = dblist.pick_random()
+		upgrade_options.append(randomitem)
+		return randomitem
+	else:
+		return null

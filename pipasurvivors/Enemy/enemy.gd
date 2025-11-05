@@ -3,9 +3,11 @@ extends CharacterBody2D
 @export var hp = 15
 @export var knockback_recovery = 10.5
 @export var movement_speed = 100.0
+@export var experience = 1
 var knockback = Vector2.ZERO
 
 @onready var player = get_tree().get_first_node_in_group("player")
+@onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite = $Sprite2D
 @onready var collisionEnemy = $CollisionEnemy
 @onready var anim = $AnimationPlayer
@@ -14,6 +16,8 @@ var knockback = Vector2.ZERO
 @onready var animFire = $FogoBody/AnimationPlayerFire
 @onready var spriteFire = $FogoBody/FogoSprite
 @onready var snd_hit = $snd_hit
+
+var exp_gem = preload("res://Objects/experience_gem.tscn")
 
 # Posição original do FogoBody quando não está flipado
 var original_fire_position = Vector2(24, -2)
@@ -50,6 +54,10 @@ func death():
 	enemy_death.scale = sprite.scale
 	enemy_death.global_position = global_position
 	get_parent().call_deferred("add_child", enemy_death)
+	var new_gem = exp_gem.instantiate()
+	new_gem.global_position = global_position
+	new_gem.experience = experience
+	loot_base.call_deferred("add_child", new_gem)
 	queue_free()
 	
 func take_damage(amount: float):
@@ -63,6 +71,6 @@ func take_knockback(direction: Vector2, force: float):
 	knockback = direction * force	
 
 func _on_hurt_box_hurt(damage, angle, knockback_force):
-	print('entrou no hurtbox do enemy', damage, angle, knockback_force)
+	#print('entrou no hurtbox do enemy', damage, angle, knockback_force)
 	take_damage(damage)
 	take_knockback((angle), knockback_force)

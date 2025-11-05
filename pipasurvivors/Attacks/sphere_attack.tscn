@@ -1,13 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://cqtgmsit17mvi"]
 
-[ext_resource type="Texture2D" uid="uid://g8b7cqhdwui" path="res://resources/sprites/weapons/BasicProjectile.png" id="1_btbbf"]
 [ext_resource type="Script" uid="uid://bl774hvdeowo5" path="res://Attacks/sphere_attack.gd" id="1_kup77"]
-[ext_resource type="AudioStream" uid="uid://df0b0per3n106" path="res://resources/audio/attacks/laser_singleshot.wav" id="3_h17e4"]
+[ext_resource type="Texture2D" uid="uid://dvqako7df6ay6" path="res://resources/sprites/airSlashV3.png" id="2_h17e4"]
+[ext_resource type="AudioStream" uid="uid://c00l0tobhkrl2" path="res://resources/audio/attacks/sphereSwoosh.wav" id="3_h17e4"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kup77"]
-radius = 8.06226
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h17e4"]
+radius = 16.9706
+height = 65.7609
 
 [node name="SphereAttack" type="Area2D" groups=["attack"]]
+scale = Vector2(0.5, 0.5)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_kup77")
@@ -15,21 +17,23 @@ script = ExtResource("1_kup77")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 rotation = -0.785398
-texture = ExtResource("1_btbbf")
+texture = ExtResource("2_h17e4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = -0.785398
-shape = SubResource("CircleShape2D_kup77")
+texture_filter = 1
+position = Vector2(0.75, 0.249996)
+rotation = -2.35619
+shape = SubResource("CapsuleShape2D_h17e4")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.5
 one_shot = true
 autostart = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_h17e4")
 volume_db = -15.865
-pitch_scale = 1.4
+pitch_scale = 1.19
 autoplay = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

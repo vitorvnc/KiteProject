@@ -9,8 +9,8 @@ var angle = Vector2.ZERO
 # Propriedades exportáveis para fácil ajuste no editor
 @export var base_damage: float = 5.0
 @export var knockback_force: float = 200.0
-@export var speed: float = 350.0
-@export var lifetime: float = 3.0  # Tempo até destruir automaticamente
+@export var speed: float = 200.0
+@export var lifetime: float = 1.5  # Tempo até destruir automaticamente
 @export var attack_size: float = 1.0
 @export var pierce_count: int = 1  # Quantos inimigos pode acertar antes de desaparecer
 
@@ -18,6 +18,12 @@ var current_damage: float
 var current_knockback: float
 var direction: Vector2 = Vector2.ZERO
 var hit_enemies: Array[Node] = []
+
+var distanceCovered = 0
+var maxDistance = 100
+var maxScale = 1.5
+
+const epsilon = 0.05
 
 @onready var player = get_tree().get_first_node_in_group("player")
 signal remove_from_array(object)
@@ -42,6 +48,20 @@ func setup(initial_position: Vector2, target_position: Vector2, weapon_data: Wea
 
 func _physics_process(delta: float) -> void:
 	position += direction * speed * delta
+	
+	var t = distanceCovered / maxDistance
+	if t >= 1.0 - epsilon:
+		queue_free()
+	
+	#Ease out
+	t = 1- (t * t * t)
+	scale.x = min(1/t, maxScale)
+	scale.y = min(1/t, maxScale)
+	modulate.a = t
+	var heading = direction * speed * t * delta
+	distanceCovered += heading.length()
+	global_position += heading
+	
 
 func enemy_hit(charge = 1):
 	hp -= charge

@@ -3,7 +3,7 @@ class_name WeaponData
 
 enum AttackType {SINGLE, CONTINUOUS}
 @export var id: String = ""
-@export var icon: Texture2D
+@export var icon: String = ""
 @export var display_name: String = ""
 @export var description: String = ""
 @export var attack_type: AttackType = AttackType.SINGLE
