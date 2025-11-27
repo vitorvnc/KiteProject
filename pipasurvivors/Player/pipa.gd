@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var time = 0
+
 @export var hp = 80.0
 @export var maxhp = 80.0
 @export var movement_speed = 60.0
@@ -23,6 +25,13 @@ var collected_experience = 0
 @onready var upgradeOptions = get_node("%UpgradeOptions")
 @onready var itemOptions = preload("res://Utility/item_option.tscn")
 @onready var sndLevelUp = get_node("%snd_levelup")
+@onready var healthBar = get_node("%HealthBar")
+@onready var lblTimer = get_node("%lblTimer")
+
+#tabela grid com upgrades e weapons
+@onready var collectedWeapons = get_node("%CollectedWeapons")
+@onready var collectedUpgrades = get_node("%CollectedUpgrades")
+@onready var itemContainer = preload("res://Player/GUI/item_container.tscn")
 
 #ATTACK E WEAPONS
 @export var attack_spawn_point: Marker2D  # Ponto de spawn dos ataques Whip
@@ -53,6 +62,7 @@ var target_enemy: Node2D = null
 
 func _ready():
 	set_expbar(experience, calculate_experiencecap())
+	_on_hurt_box_hurt(0,0,0)
 	attack_spawn_point = $AttackSpawnPoint
 	var weapon = load("res://Utility/weapons_db.tres::Resource_mqtek")
 
@@ -97,6 +107,8 @@ func killPlayer():
 	
 func _on_hurt_box_hurt(damage: Variant, _angle, _knockback) -> void:
 	hp-= damage-armor
+	healthBar.max_value = maxhp
+	healthBar.value = hp
 	print(hp)
 #ATTACK AREA
 # Atualiza a direção dos ataques (se necessário)
@@ -117,12 +129,20 @@ func set_attacks_active(active: bool):
 		attack.monitorable = active
 		
 func load_starting_weapons():
+
 	for i in starting_weapons:
 		var weapon_id = i['id']
 		var weapon_data = weapons_db.get_weapon_by_id(weapon_id)
 		#print('vai pegar wd pra entrar no add: ', weapon_data)
 		if weapon_data:
 			add_weapon(weapon_data)
+			var new_item = itemContainer.instantiate()
+			new_item.upgrade = weapon_data
+			match weapon_data.type:
+				"weapon":
+					collectedWeapons.add_child(new_item)
+				"upgrade":
+					collectedUpgrades.add_child(new_item)
 
 func add_weapon(weapon_data: WeaponData):
 	print('entrou no add weapon', weapon_data)
@@ -345,6 +365,7 @@ func levelup():
 	get_tree().paused = true
 
 func upgrade_character(upgrade):
+	adjust_gui_collection(upgrade)
 	var option_children = upgradeOptions.get_children()
 	for i in option_children:
 		i.queue_free()
@@ -396,3 +417,29 @@ func _find_weapon_index(weapon_id: String) -> int:
 		if collected_weapons[i]["data"].id.begins_with(weapon_id.split("_")[0]):
 			return i
 	return -1
+	
+func change_time(argtime = 0):
+	time = argtime
+	var get_m = int(time/60.0)
+	var get_s = time % 60
+	if get_m < 10:
+		get_m = str(0,get_m)
+	if get_s <10:
+		get_s = str(0, get_s)
+	lblTimer.text = str(get_m, ":", get_s)
+
+func adjust_gui_collection(upgrade):
+	var get_upgraded_displaynames = upgrade.display_name
+	var get_type = upgrade.type
+	if get_type != "recovery":
+		var get_collected_displaynames = []
+		for i in collected_weapons:
+				get_collected_displaynames.append(i.data.display_name)
+		if not get_upgraded_displaynames in get_collected_displaynames:
+			var new_item = itemContainer.instantiate()
+			new_item.upgrade = upgrade
+			match get_type:
+				"weapon":
+					collectedWeapons.add_child(new_item)
+				"upgrade":
+					collectedUpgrades.add_child(new_item)

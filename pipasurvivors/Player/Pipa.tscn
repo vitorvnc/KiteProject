@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b1la2v8gru4bp"]
+[gd_scene load_steps=17 format=3 uid="uid://b1la2v8gru4bp"]
 
 [ext_resource type="Script" uid="uid://g2dqvewerx1" path="res://Player/pipa.gd" id="1_1hqn8"]
 [ext_resource type="Resource" uid="uid://dsm51ep1luk5c" path="res://Utility/weapons_db.tres" id="2_gknts"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://52uuf2ltbwpx" path="res://resources/images/GUI/exp_progress.png" id="7_s2jef"]
 [ext_resource type="FontFile" uid="uid://cxyuy2f2u2034" path="res://resources/Font/tenderness.otf" id="8_s2jef"]
 [ext_resource type="AudioStream" uid="uid://sq5yquvsekhi" path="res://resources/audio/lvlUp.mp3" id="9_quppt"]
+[ext_resource type="Texture2D" uid="uid://345t2b55f0pl" path="res://resources/images/GUI/healthbar.png" id="10_iujw8"]
+[ext_resource type="Texture2D" uid="uid://pj6jbaneu2uq" path="res://resources/images/GUI/health.png" id="11_b6brw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ntmi"]
 size = Vector2(19.9758, 19.9758)
@@ -156,6 +158,18 @@ text = "Level: 1"
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[node name="HealthBar" type="TextureProgressBar" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.392157)
+layout_mode = 0
+offset_left = 347.0
+offset_top = 620.0
+offset_right = 379.0
+offset_bottom = 628.0
+value = 50.0
+texture_over = ExtResource("10_iujw8")
+texture_progress = ExtResource("11_b6brw")
+
 [node name="LevelUp" type="Panel" parent="GUILayer/GUI"]
 unique_name_in_owner = true
 process_mode = 2
@@ -187,6 +201,37 @@ offset_bottom = 100.0
 [node name="snd_levelup" type="AudioStreamPlayer" parent="GUILayer/GUI/LevelUp"]
 unique_name_in_owner = true
 stream = ExtResource("9_quppt")
+
+[node name="lblTimer" type="Label" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 310.0
+offset_top = 20.0
+offset_right = 390.0
+offset_bottom = 44.0
+theme_override_fonts/font = ExtResource("8_s2jef")
+theme_override_font_sizes/font_size = 20
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CollectedWeapons" type="GridContainer" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 208.0
+offset_bottom = 40.0
+columns = 10
+
+[node name="CollectedUpgrades" type="GridContainer" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 208.0
+offset_bottom = 56.0
+columns = 10
 
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 [connection signal="timeout" from="Attack/SphereTimer" to="." method="_on_sphere_timer_timeout"]
