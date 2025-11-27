@@ -1,31 +1,32 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1762211957
+::res://::1764248962
 icon.svg::CompressedTexture2D/CompressedTexture2D::2292887708118693723::1745510636::1745510641::1::::<><><>0<>0<>fa2a8713284a7b41171da5b705f59b23<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
-::res://Attacks/::1762195415
+::res://Attacks/::1764178476
 attack.gd::GDScript/GDScript::3662180973903617819::1751936482::0::1::::BaseAttack<>Area2D<><>0<>0<><>::
 attack.tscn::PackedScene/PackedScene::3050713443264369351::1753059418::0::1::::<><><>0<>0<><>::uid://bsf8t568p7532::::res://Attacks/attack.gd
+SlashFXNEW-Sheet.png::CompressedTexture2D/CompressedTexture2D::548819713223375156::1764175768::1764175710::1::::<><><>0<>0<>9d9580b330cd53474c7e3d1524039ff3<>res://.godot/imported/SlashFXNEW-Sheet.png-cc6a5301e1fd548037da9e4ae6fb7cb2.ctex::
 sphere_attack.gd::GDScript/GDScript::3226553183879710498::1754324682::0::1::::<>Area2D<><>0<>0<><>::
-sphere_attack.tscn::PackedScene::5935472733083341570::1762195415::0::1::::<><><>0<>0<><>::uid://bl774hvdeowo5::::res://Attacks/sphere_attack.gd<>uid://dvqako7df6ay6::::res://resources/sprites/airSlashV3.png<>uid://c00l0tobhkrl2::::res://resources/audio/attacks/sphereSwoosh.wav
-wave_attack.gd::GDScript/GDScript::5352633621081419013::1753285440::0::1::::<>Area2D<><>0<>0<><>::
-wave_attack.tscn::PackedScene/PackedScene::4724859231914889335::1760276733::0::1::::<><><>0<>0<><>::uid://ce2k3krhvdvrj::::res://resources/sprites/weapons/WaveAttkV1-Sheet.png<>uid://cii4dglft072x::::res://Attacks/wave_attack.gd<>uid://d273ilflnfuuh::::res://resources/audio/attacks/WaveSnd.wav
-whipAttack.tscn::PackedScene/PackedScene::8402686759091388612::1760276733::0::1::::<><><>0<>0<><>::uid://c4sbw8yjn25uu::::res://resources/sprites/weapons/SlashFX Combo3 sheet.png<>uid://dl7645voh1lsx::::res://Attacks/whip_attack.gd<>uid://bvib1ue2qt10g::::res://resources/audio/attacks/swoosh_vento.wav
-whip_attack.gd::GDScript/GDScript::7999335042814457191::1753725628::0::1::::<>Area2D<><>0<>0<><>::
-::res://Enemy/::1762195415
+sphere_attack.tscn::PackedScene::5935472733083341570::1764178476::0::1::::<><><>0<>0<><>::uid://bl774hvdeowo5::::res://Attacks/sphere_attack.gd<>uid://dvqako7df6ay6::::res://resources/sprites/airSlashV3.png<>uid://c00l0tobhkrl2::::res://resources/audio/attacks/sphereSwoosh.wav
+wave_attack.gd::GDScript::5352633621081419013::1764178473::0::1::::<>Area2D<><>0<>0<><>::
+wave_attack.tscn::PackedScene::4724859231914889335::1764178476::0::1::::<><><>0<>0<><>::uid://ce2k3krhvdvrj::::res://resources/sprites/weapons/WaveAttkV1-Sheet.png<>uid://cii4dglft072x::::res://Attacks/wave_attack.gd<>uid://d273ilflnfuuh::::res://resources/audio/attacks/WaveSnd.wav
+whipAttack.tscn::PackedScene::8402686759091388612::1764178476::0::1::::<><><>0<>0<><>::uid://dl7645voh1lsx::::res://Attacks/whip_attack.gd<>uid://cq4r14qq1atul::::res://resources/sprites/weapons/SlashFXNEW-Sheet.png<>uid://bvib1ue2qt10g::::res://resources/audio/attacks/swoosh_vento.wav
+whip_attack.gd::GDScript::7999335042814457191::1764174708::0::1::::<>Area2D<><>0<>0<><>::
+::res://Enemy/::1764178476
 death_explosion.gd::GDScript/GDScript::8783341778184325437::1751850134::0::1::::<>Sprite2D<><>0<>0<><>::
 death_explosion.tscn::PackedScene/PackedScene::5711285880176033370::1760276733::0::1::::<><><>0<>0<><>::uid://dpwe5rg147gf7::::res://resources/sprites/explosion.png<>uid://cmblr4kwtaee7::::res://resources/audio/enemy/Death Sound 4.mp3<>uid://dxeymdlk7ts0l::::res://Enemy/death_explosion.gd
-enemy.gd::GDScript/GDScript::7708986334481721137::1753739894::0::1::::<>CharacterBody2D<><>0<>0<><>::
-enemy.tscn::PackedScene::2204846856354526774::1762195415::0::1::::<><><>0<>0<><>::uid://dh3j44x0puei8::::res://Enemy/enemy.gd<>uid://cg3d2obdo48it::::res://resources/sprites/OnlyDrone-Sheet.png<>uid://3r3n14gy4ia1::::res://resources/sprites/FireOnly-Sheet.png<>uid://exgw1ctdddun::::res://Utility/hurt_box.tscn<>uid://dw02vqexp28fh::::res://Utility/hit_box.tscn<>uid://cwshg20tglvi0::::res://resources/audio/enemy/Retro Impact Punch Hurt 01.wav
-::res://Levels/::1762197909
+enemy.gd::GDScript/GDScript::7708986334481721137::1763773001::0::1::::<>CharacterBody2D<><>0<>0<><>::
+enemy.tscn::PackedScene::2204846856354526774::1764178476::0::1::::<><><>0<>0<><>::uid://dh3j44x0puei8::::res://Enemy/enemy.gd<>uid://cg3d2obdo48it::::res://resources/sprites/OnlyDrone-Sheet.png<>uid://3r3n14gy4ia1::::res://resources/sprites/FireOnly-Sheet.png<>uid://exgw1ctdddun::::res://Utility/hurt_box.tscn<>uid://dw02vqexp28fh::::res://Utility/hit_box.tscn<>uid://cwshg20tglvi0::::res://resources/audio/enemy/Retro Impact Punch Hurt 01.wav
+::res://Levels/::1764178777
 camera_2d.gd::GDScript/GDScript::5942375212766437705::1746799896::0::1::::<>Camera2D<><>0<>0<><>::
-first_level.tres::VisualShader::4516766583900967689::1762197909::0::1::::<><><>0<>0<><>::
-first_level.tscn::PackedScene::1750650204900252483::1762195415::0::1::::<><><>0<>0<><>::uid://clq4s7p1vxigc::::res://resources/images/SkyBlue_720x1280.png<>uid://b5l7qrrdeyiu8::::res://Levels/first_level.tres<>uid://xx7fvnk6cg62::::res://Utility/enemy_spawner.tscn<>uid://bf0ak1ox234ny::::res://resources/images/CLoudBar.png<>uid://b1la2v8gru4bp::::res://Player/Pipa.tscn<>uid://6obrgp118fsw::::res://Enemy/enemy.tscn<>uid://b52gp36wo8n6y::::res://Utility/spawn_info.gd<>uid://bmiehwxv53bvc::::res://Objects/experience_gem.tscn
-first_shader.tres::VisualShader::5764532200190762647::1762197909::0::1::::<><><>0<>0<><>::
-::res://Objects/::1762190919
-experience_gem.gd::GDScript::3002770672486439897::1762190919::0::1::::<>Area2D<><>0<>0<><>::
+first_level.tres::VisualShader::4516766583900967689::1764178777::0::1::::<><><>0<>0<><>::
+first_level.tscn::PackedScene::1750650204900252483::1764178475::0::1::::<><><>0<>0<><>::uid://clq4s7p1vxigc::::res://resources/images/SkyBlue_720x1280.png<>uid://b5l7qrrdeyiu8::::res://Levels/first_level.tres<>uid://xx7fvnk6cg62::::res://Utility/enemy_spawner.tscn<>uid://bf0ak1ox234ny::::res://resources/images/CLoudBar.png<>uid://b1la2v8gru4bp::::res://Player/Pipa.tscn<>uid://bmiehwxv53bvc::::res://Objects/experience_gem.tscn
+first_shader.tres::VisualShader::5764532200190762647::1764178777::0::1::::<><><>0<>0<><>::
+::res://Objects/::1764168490
+experience_gem.gd::GDScript::3002770672486439897::1764168490::0::1::::<>Area2D<><>0<>0<><>::
 experience_gem.tscn::PackedScene/PackedScene::3245458389949909104::1760276733::0::1::::<><><>0<>0<><>::uid://bi1tgutocmfrd::::res://Objects/experience_gem.gd<>uid://cwk7trb0l4xyv::::res://resources/sprites/starExpGreen-Sheet.png<>uid://cytfewyuy85xe::::res://resources/audio/pickup.wav
-::res://Player/::1762197909
-pipa.gd::GDScript::14031855736581676::1762197909::0::1::::<>CharacterBody2D<><>0<>0<><>::
-Pipa.tscn::PackedScene::4234088144277081429::1762197909::0::1::::<><><>0<>0<><>::uid://g2dqvewerx1::::res://Player/pipa.gd<>uid://dsm51ep1luk5c::::res://Utility/weapons_db.tres<>uid://ki2qv0twyqxs::::res://resources/sprites/KiteV3-Sheet.png<>uid://mu148yjaj4sv::::res://resources/sprites/rabiolaTest.png<>uid://exgw1ctdddun::::res://Utility/hurt_box.tscn<>uid://34hbae110jfh::::res://resources/images/GUI/exp_background.png<>uid://52uuf2ltbwpx::::res://resources/images/GUI/exp_progress.png<>uid://cxyuy2f2u2034::::res://resources/Font/tenderness.otf<>uid://sq5yquvsekhi::::res://resources/audio/lvlUp.mp3
+::res://Player/::1764178476
+pipa.gd::GDScript::14031855736581676::1764178225::0::1::::<>CharacterBody2D<><>0<>0<><>::
+Pipa.tscn::PackedScene::4234088144277081429::1764178476::0::1::::<><><>0<>0<><>::uid://g2dqvewerx1::::res://Player/pipa.gd<>uid://dsm51ep1luk5c::::res://Utility/weapons_db.tres<>uid://ki2qv0twyqxs::::res://resources/sprites/KiteV3-Sheet.png<>uid://mu148yjaj4sv::::res://resources/sprites/rabiolaTest.png<>uid://exgw1ctdddun::::res://Utility/hurt_box.tscn<>uid://34hbae110jfh::::res://resources/images/GUI/exp_background.png<>uid://52uuf2ltbwpx::::res://resources/images/GUI/exp_progress.png<>uid://cxyuy2f2u2034::::res://resources/Font/tenderness.otf<>uid://sq5yquvsekhi::::res://resources/audio/lvlUp.mp3
 ::res://resources/::1760732722
 ::res://resources/audio/::1757862773
 lvlUp.mp3::AudioStreamMP3/AudioStreamMP3::1298294470634308350::1556996698::1757862773::1::::<><><>0<>0<>6cb8c19024df70bf8b07966092fc43ad<>res://.godot/imported/lvlUp.mp3-a8a7df69283fcf56555a86672b92af4c.mp3str::
@@ -83,11 +84,12 @@ ice_spear.png::CompressedTexture2D/CompressedTexture2D::1188489674928613477::166
 javelin_3_new.png::CompressedTexture2D/CompressedTexture2D::6065602315363233297::1667010172::1757864838::1::::<><><>0<>0<>a66dbb837d859453612fd802d9d06e19<>res://.godot/imported/javelin_3_new.png-3e1994a8b04964ee54d2dd86d0e3e4ff.ctex::
 sword.png::CompressedTexture2D/CompressedTexture2D::5542927615241958094::1667010172::1757864838::1::::<><><>0<>0<>e5fefce9ab3ed2dd579012142d8ebf5a<>res://.godot/imported/sword.png-6b45c3ac3b680991a0eaf8d76cb4b913.ctex::
 tornado.png::CompressedTexture2D/CompressedTexture2D::5666408196963094393::1667010172::1757864838::1::::<><><>0<>0<>537e0774c1b5a2f74cb138c9fa02c6c2<>res://.godot/imported/tornado.png-4901c0c7c8ebf137151f18d8ab5aa2d2.ctex::
-::res://resources/sprites/weapons/::1753282709
+::res://resources/sprites/weapons/::1764175568
 airSlash.png::CompressedTexture2D/CompressedTexture2D::4857557167041485337::1750795096::1750795096::1::::<><><>0<>0<>ac334bc82b5605e95b6f932eaa059c2e<>res://.godot/imported/airSlash.png-4087c50d3c44b92c9f9fb17be5565461.ctex::
 airSlashV2-Sheet.png::CompressedTexture2D/CompressedTexture2D::2080325331738939225::1750858338::1750858344::1::::<><><>0<>0<>91701f81540273bcaee54924aa2ad2ed<>res://.godot/imported/airSlashV2-Sheet.png-58d8ed80b90872d7613513ea744c9715.ctex::
 BasicProjectile.png::CompressedTexture2D/CompressedTexture2D::14393397652835472::1750525298::1750525298::1::::<><><>0<>0<>26d4a9344ed7b433bca963109e4e6bdf<>res://.godot/imported/BasicProjectile.png-0fea71a596d60ac96852dd012c867475.ctex::
-SlashFX Combo3 sheet.png::CompressedTexture2D/CompressedTexture2D::6845578407694139900::1750859169::1750859170::1::::<><><>0<>0<>e385bc83624976eb929e3cfde6b58e2a<>res://.godot/imported/SlashFX Combo3 sheet.png-518d9bac3eda42f31bddc9210e5c71f6.ctex::
+SlashFX Combo3 sheet.png::CompressedTexture2D/CompressedTexture2D::6845578407694139900::1764178781::1764248964::1::::<><><>0<>0<>e385bc83624976eb929e3cfde6b58e2a<>res://.godot/imported/SlashFX Combo3 sheet.png-518d9bac3eda42f31bddc9210e5c71f6.ctex::
+SlashFXNEW-Sheet.png::CompressedTexture2D/CompressedTexture2D::5956809988636769951::1764175702::1764175568::1::::<><><>0<>0<>aac6149d7d1a6452bb0d1513c940766b<>res://.godot/imported/SlashFXNEW-Sheet.png-697638daed52c7c2312e5fce4544da70.ctex::
 WaveAttkV1-Sheet.png::CompressedTexture2D/CompressedTexture2D::5109992665296377639::1753282709::1753282709::1::::<><><>0<>0<>6759f2aae297b308a86154f12dc0505b<>res://.godot/imported/WaveAttkV1-Sheet.png-a8e0d233922063efb2b0ccfb85156398.ctex::
 ::res://Textures/::1760195341
 ::res://Textures/Items/::1760195341
@@ -109,21 +111,21 @@ javelin_3_new.png::CompressedTexture2D/CompressedTexture2D::6291201970884354557:
 javelin_3_new_attack.png::CompressedTexture2D/CompressedTexture2D::6781074272550611347::1667010172::1760195350::1::::<><><>0<>0<>7c0fd5519e51fb51eff3b9e0c4bb06ac<>res://.godot/imported/javelin_3_new_attack.png-830d039410fc8e4042b2ab08a0ef517e.ctex::
 sword.png::CompressedTexture2D/CompressedTexture2D::1373477068337448989::1667010172::1760195350::1::::<><><>0<>0<>0c68ac2204a398e345cd417e985cbc91<>res://.godot/imported/sword.png-979d87b34967510545433b49f3482194.ctex::
 tornado.png::CompressedTexture2D/CompressedTexture2D::2531447420394530754::1667010172::1760195350::1::::<><><>0<>0<>695c31d89d2609bc24b719bd9ba32698<>res://.godot/imported/tornado.png-84bd3c437635d0edcdda9f5a76ecfe31.ctex::
-::res://Utility/::1762197909
+::res://Utility/::1764178476
 enemy_spawner.gd::GDScript/GDScript::5441568679766097814::1753738132::0::1::::<>Node2D<><>0<>0<><>::
-enemy_spawner.tscn::PackedScene/PackedScene::1663777088324848721::1753727419::0::1::::<><><>0<>0<><>::uid://cjr63ul417idq::::res://Utility/enemy_spawner.gd<>uid://b52gp36wo8n6y::::res://Utility/spawn_info.gd<>uid://6obrgp118fsw::::res://Enemy/enemy.tscn
-hit_box.gd::GDScript/GDScript::4503465792986165986::1749434213::0::1::::<>Area2D<><>0<>0<><>::
+enemy_spawner.tscn::PackedScene::1663777088324848721::1764178476::0::1::::<><><>0<>0<><>::uid://cjr63ul417idq::::res://Utility/enemy_spawner.gd<>uid://b52gp36wo8n6y::::res://Utility/spawn_info.gd<>uid://6obrgp118fsw::::res://Enemy/enemy.tscn
+hit_box.gd::GDScript/GDScript::4503465792986165986::1763770350::0::1::::<>Area2D<><>0<>0<><>::
 hit_box.tscn::PackedScene/PackedScene::8756703763063186653::1753059418::0::1::::<><><>0<>0<><>::uid://b5frony8i48ru::::res://Utility/hit_box.gd
 hurt_box.gd::GDScript/GDScript::4603549533301307733::1753239649::0::1::::<>Area2D<><>0<>0<><>::
 hurt_box.tscn::PackedScene/PackedScene::328641021882127593::1760276733::0::1::::<><><>0<>0<><>::uid://b6t812gpn2a7n::::res://Utility/hurt_box.gd
-item_option.gd::GDScript::7283866029795605022::1762194101::0::1::::<>ColorRect<><>0<>0<><>::
-item_option.tscn::PackedScene::7367969152631309798::1762195415::0::1::::<><><>0<>0<><>::uid://ck8bhco5dijdu::::res://resources/sprites/weaponIcons/sword.png<>uid://db1mhd8j8oqs1::::res://Utility/item_option.gd<>uid://cxyuy2f2u2034::::res://resources/Font/tenderness.otf
+item_option.gd::GDScript/GDScript::7283866029795605022::1762194101::0::1::::<>ColorRect<><>0<>0<><>::
+item_option.tscn::PackedScene::7367969152631309798::1764178476::0::1::::<><><>0<>0<><>::uid://ck8bhco5dijdu::::res://resources/sprites/weaponIcons/sword.png<>uid://db1mhd8j8oqs1::::res://Utility/item_option.gd<>uid://dsm51ep1luk5c::::res://Utility/weapons_db.tres<>uid://cxyuy2f2u2034::::res://resources/Font/tenderness.otf
 spawn_info.gd::GDScript/GDScript::4548216800621200850::1749470551::0::1::::Spawn_info<>Resource<><>0<>0<><>::
 upgrade_db.gd::GDScript/GDScript::5026829776995467882::1760198099::0::1::::<>Node<><>0<>0<><>::
-upgrade_db.tscn::PackedScene::1531868316975390189::1762195415::0::1::::<><><>0<>0<><>::uid://cdvbffyer3e8i::::res://Utility/upgrade_db.gd
+upgrade_db.tscn::PackedScene::1531868316975390189::1764178476::0::1::::<><><>0<>0<><>::uid://cdvbffyer3e8i::::res://Utility/upgrade_db.gd
 WaveAttkV1-Sheet.png::CompressedTexture2D/CompressedTexture2D::4738514980985280923::1753271844::1753271844::1::::<><><>0<>0<>900073df2a3c4ee77025b456b3352b07<>res://.godot/imported/WaveAttkV1-Sheet.png-65382fe6342040faeca9c9d700952246.ctex::
-WeaponData.gd::GDScript/GDScript::382951237569777294::1760735511::0::1::::WeaponData<>Resource<><>0<>0<><>::
-WeaponDatabase.gd::GDScript/GDScript::7582463957613910124::1760736961::0::1::::WeaponDatabase<>Resource<><>0<>0<><>::
-weapons_db.tres::Resource/WeaponDatabase::8449301944499410806::1762197909::0::1::::<><><>0<>0<><>::uid://dgbacrbuksf8g::::res://Utility/WeaponDatabase.gd<>uid://fprfeqjchw67::::res://Utility/WeaponData.gd<>uid://cqtgmsit17mvi::::res://Attacks/sphere_attack.tscn<>uid://dryla151lkqu3::::res://Attacks/whipAttack.tscn<>uid://b8k00g4wphiff::::res://Attacks/wave_attack.tscn
+WeaponData.gd::GDScript/GDScript::382951237569777294::1763845710::0::1::::WeaponData<>Resource<><>0<>0<><>::
+WeaponDatabase.gd::GDScript/GDScript::7582463957613910124::1763770624::0::1::::WeaponDatabase<>Resource<><>0<>0<><>::
+weapons_db.tres::Resource/WeaponDatabase::8449301944499410806::1764168645::0::1::::<><><>0<>0<><>::uid://dgbacrbuksf8g::::res://Utility/WeaponDatabase.gd<>uid://fprfeqjchw67::::res://Utility/WeaponData.gd<>uid://cqtgmsit17mvi::::res://Attacks/sphere_attack.tscn<>uid://dryla151lkqu3::::res://Attacks/whipAttack.tscn<>uid://b8k00g4wphiff::::res://Attacks/wave_attack.tscn
 ::res://Utility/Camera/::1749432783
 camera.gd::GDScript/GDScript::8077356732761160769::1746754623::0::1::::<>Camera2D<><>0<>0<><>::

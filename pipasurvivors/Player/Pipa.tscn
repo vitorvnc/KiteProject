@@ -81,7 +81,10 @@ debug_color = Color(0.800802, 0, 0.275992, 0.42)
 position = Vector2(-3.33333, -45.8333)
 
 [node name="WhipPosition" type="Marker2D" parent="."]
-position = Vector2(-56.6667, -63.3333)
+position = Vector2(-30, -63)
+
+[node name="WhipPosition2" type="Marker2D" parent="."]
+position = Vector2(30, -63)
 
 [node name="WavePosition" type="Marker2D" parent="."]
 z_index = -1
@@ -162,6 +165,7 @@ offset_left = 800.0
 offset_top = 500.0
 offset_right = 1000.0
 offset_bottom = 750.0
+scale = Vector2(1.6, 1.6)
 
 [node name="lbl_LevelUp" type="Label" parent="GUILayer/GUI/LevelUp"]
 layout_mode = 0

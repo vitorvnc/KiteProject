@@ -27,7 +27,7 @@ var follow_parent: bool = true
 @onready var player = get_tree().get_first_node_in_group("player")
 signal remove_from_array(object)
 
-func setup(initial_position: Vector2, target_position: Vector2, weapon_data: WeaponData = null):
+func setup(initial_position: Vector2, target_position: Vector2, weapon_data: WeaponData = null, flipAttack = false):
 	if weapon_data:
 		current_damage = weapon_data.base_damage
 		current_knockback = weapon_data.knockback_force

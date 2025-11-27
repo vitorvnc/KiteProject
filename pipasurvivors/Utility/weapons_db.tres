@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="WeaponDatabase" load_steps=12 format=3 uid="uid://dsm51ep1luk5c"]
+[gd_resource type="Resource" script_class="WeaponDatabase" load_steps=22 format=3 uid="uid://dsm51ep1luk5c"]
 
 [ext_resource type="Script" uid="uid://dgbacrbuksf8g" path="res://Utility/WeaponDatabase.gd" id="1_hlaex"]
 [ext_resource type="Script" uid="uid://fprfeqjchw67" path="res://Utility/WeaponData.gd" id="2_mqtek"]
@@ -20,32 +20,16 @@ attack_scene = ExtResource("5_kyuc6")
 base_damage = 10.0
 knockback_force = 800.0
 cooldown = 2.0
-attack_range = 100.0
 speed = 350.0
+projectile_count = 1
+projectile_cooldown = 0.2
+attack_range = 100.0
 pierce_count = 1
 attack_size = 1.0
 spawn_point_path = NodePath("")
 is_child_attack = true
 knockback_direction = Vector2(0, -1)
-levels = Array[Dictionary]([{
-"cooldown": 0.8,
-"damage": 5,
-"knockback": 100,
-"size": 1.0,
-"speed": 350
-}, {
-"cooldown": 0.7,
-"damage": 8,
-"knockback": 120,
-"size": 1.1,
-"speed": 380
-}, {
-"cooldown": 0.6,
-"damage": 12,
-"knockback": 150,
-"size": 1.2,
-"speed": 400
-}])
+upgrade_ammount = 0.0
 metadata/_custom_type_script = "uid://fprfeqjchw67"
 
 [sub_resource type="Resource" id="Resource_ws6nd"]
@@ -61,33 +45,17 @@ type = "weapon"
 attack_scene = ExtResource("3_ws6nd")
 base_damage = 1.0
 knockback_force = 100.0
-cooldown = 1.2
+cooldown = 2.0
+speed = 350.0
+projectile_count = 1
+projectile_cooldown = 0.2
 attack_range = 100.0
-speed = 200.0
 pierce_count = 1
 attack_size = 1.0
 spawn_point_path = NodePath("")
 is_child_attack = false
 knockback_direction = Vector2(0, -1)
-levels = Array[Dictionary]([{
-"cooldown": 0.8,
-"damage": 5,
-"knockback": 100,
-"size": 1.0,
-"speed": 350
-}, {
-"cooldown": 0.7,
-"damage": 8,
-"knockback": 120,
-"size": 1.1,
-"speed": 380
-}, {
-"cooldown": 0.6,
-"damage": 12,
-"knockback": 150,
-"size": 1.2,
-"speed": 400
-}])
+upgrade_ammount = 0.0
 metadata/_custom_type_script = "uid://fprfeqjchw67"
 
 [sub_resource type="Resource" id="Resource_kyuc6"]
@@ -101,35 +69,19 @@ level = 1
 prerequisite_ids = Array[String]([])
 type = "weapon"
 attack_scene = ExtResource("5_nv12s")
-base_damage = 10.0
-knockback_force = 200.0
-cooldown = 3.0
-attack_range = 100.0
+base_damage = 2.0
+knockback_force = 60.0
+cooldown = 5.0
 speed = 350.0
+projectile_count = 1
+projectile_cooldown = 1.5
+attack_range = 100.0
 pierce_count = 1
 attack_size = 1.0
 spawn_point_path = NodePath("")
 is_child_attack = true
 knockback_direction = Vector2(0, -1)
-levels = Array[Dictionary]([{
-"cooldown": 0.8,
-"damage": 5,
-"knockback": 100,
-"size": 1.0,
-"speed": 350
-}, {
-"cooldown": 0.7,
-"damage": 8,
-"knockback": 120,
-"size": 1.1,
-"speed": 380
-}, {
-"cooldown": 0.6,
-"damage": 12,
-"knockback": 150,
-"size": 1.2,
-"speed": 400
-}])
+upgrade_ammount = 0.0
 metadata/_custom_type_script = "uid://fprfeqjchw67"
 
 [sub_resource type="Resource" id="Resource_nv12s"]
@@ -145,38 +97,22 @@ type = "weapon"
 attack_scene = ExtResource("3_ws6nd")
 base_damage = 20.0
 knockback_force = 150.0
-cooldown = 1.0
-attack_range = 100.0
+cooldown = 2.0
 speed = 350.0
+projectile_count = 2
+projectile_cooldown = 0.2
+attack_range = 100.0
 pierce_count = 1
 attack_size = 3.0
 spawn_point_path = NodePath("")
 is_child_attack = false
 knockback_direction = Vector2(0, -1)
-levels = Array[Dictionary]([{
-"cooldown": 0.8,
-"damage": 5,
-"knockback": 100,
-"size": 1.0,
-"speed": 350
-}, {
-"cooldown": 0.7,
-"damage": 8,
-"knockback": 120,
-"size": 1.1,
-"speed": 380
-}, {
-"cooldown": 0.6,
-"damage": 12,
-"knockback": 150,
-"size": 1.2,
-"speed": 400
-}])
+upgrade_ammount = 0.0
 metadata/_custom_type_script = "uid://fprfeqjchw67"
 
 [sub_resource type="Resource" id="Resource_0ew3p"]
 script = ExtResource("2_mqtek")
-id = "sphereatk3"
+id = "sphereatk_3"
 icon = "res://resources/Icons/SphereAtk.png"
 display_name = "Sonic Boom"
 description = "An additional wind wave is thrown"
@@ -186,34 +122,18 @@ prerequisite_ids = Array[String](["sphereatk_2"])
 type = "weapon"
 attack_scene = ExtResource("3_ws6nd")
 base_damage = 50.0
-knockback_force = 200.0
-cooldown = 1.0
+knockback_force = 500.0
+cooldown = 2.0
+speed = 350.0
+projectile_count = 3
+projectile_cooldown = 0.2
 attack_range = 150.0
-speed = 400.0
 pierce_count = 1
-attack_size = 5.0
+attack_size = 6.0
 spawn_point_path = NodePath("")
 is_child_attack = false
 knockback_direction = Vector2(0, -1)
-levels = Array[Dictionary]([{
-"cooldown": 0.8,
-"damage": 5,
-"knockback": 100,
-"size": 1.0,
-"speed": 350
-}, {
-"cooldown": 0.7,
-"damage": 8,
-"knockback": 120,
-"size": 1.1,
-"speed": 380
-}, {
-"cooldown": 0.6,
-"damage": 12,
-"knockback": 150,
-"size": 1.2,
-"speed": 400
-}])
+upgrade_ammount = 0.0
 metadata/_custom_type_script = "uid://fprfeqjchw67"
 
 [sub_resource type="Resource" id="Resource_jr38m"]
@@ -225,39 +145,277 @@ description = "Recovers 10 health"
 attack_type = 0
 level = 1
 prerequisite_ids = Array[String]([])
-type = "weapon"
+type = "recovery"
 base_damage = 10.0
 knockback_force = 100.0
 cooldown = 1.0
-attack_range = 100.0
 speed = 350.0
+projectile_count = 1
+projectile_cooldown = 0.2
+attack_range = 100.0
 pierce_count = 1
 attack_size = 1.0
 spawn_point_path = NodePath("")
 is_child_attack = false
 knockback_direction = Vector2(0, -1)
-levels = Array[Dictionary]([{
-"cooldown": 0.8,
-"damage": 5,
-"knockback": 100,
-"size": 1.0,
-"speed": 350
-}, {
-"cooldown": 0.7,
-"damage": 8,
-"knockback": 120,
-"size": 1.1,
-"speed": 380
-}, {
-"cooldown": 0.6,
-"damage": 12,
-"knockback": 150,
-"size": 1.2,
-"speed": 400
-}])
+upgrade_ammount = 20.0
+metadata/_custom_type_script = "uid://fprfeqjchw67"
+
+[sub_resource type="Resource" id="Resource_hav8d"]
+script = ExtResource("2_mqtek")
+id = "reel_1"
+icon = "res://resources/Icons/Reel.png"
+display_name = "Reel"
+description = "Upgrades kite Speed"
+attack_type = 0
+level = 1
+prerequisite_ids = Array[String]([])
+type = "upgrade"
+base_damage = 10.0
+knockback_force = 100.0
+cooldown = 1.0
+speed = 350.0
+projectile_count = 1
+projectile_cooldown = 0.2
+attack_range = 100.0
+pierce_count = 1
+attack_size = 1.0
+spawn_point_path = NodePath("")
+is_child_attack = false
+knockback_direction = Vector2(0, -1)
+upgrade_ammount = 10.0
+metadata/_custom_type_script = "uid://fprfeqjchw67"
+
+[sub_resource type="Resource" id="Resource_vny38"]
+script = ExtResource("2_mqtek")
+id = "reel_2"
+icon = "res://resources/Icons/Reel.png"
+display_name = "Reel"
+description = "Upgrades kite speed"
+attack_type = 0
+level = 2
+prerequisite_ids = Array[String](["reel_1"])
+type = "upgrade"
+base_damage = 10.0
+knockback_force = 100.0
+cooldown = 1.0
+speed = 350.0
+projectile_count = 1
+projectile_cooldown = 0.2
+attack_range = 100.0
+pierce_count = 1
+attack_size = 1.0
+spawn_point_path = NodePath("")
+is_child_attack = false
+knockback_direction = Vector2(0, -1)
+upgrade_ammount = 10.0
+metadata/_custom_type_script = "uid://fprfeqjchw67"
+
+[sub_resource type="Resource" id="Resource_df2j1"]
+script = ExtResource("2_mqtek")
+id = "reel_3"
+icon = "res://resources/Icons/Reel.png"
+display_name = "Reel"
+description = "upgrades kite speed"
+attack_type = 0
+level = 3
+prerequisite_ids = Array[String](["reel_1", "reel_2"])
+type = "upgrade"
+base_damage = 10.0
+knockback_force = 100.0
+cooldown = 1.0
+speed = 350.0
+projectile_count = 1
+projectile_cooldown = 0.2
+attack_range = 100.0
+pierce_count = 1
+attack_size = 1.0
+spawn_point_path = NodePath("")
+is_child_attack = false
+knockback_direction = Vector2(0, -1)
+upgrade_ammount = 10.0
+metadata/_custom_type_script = "uid://fprfeqjchw67"
+
+[sub_resource type="Resource" id="Resource_ck2gb"]
+script = ExtResource("2_mqtek")
+id = "armor_1"
+icon = "res://resources/Icons/Paper.png"
+display_name = "Paper"
+description = "Decreases damage taken"
+attack_type = 0
+level = 1
+prerequisite_ids = Array[String]([])
+type = "upgrade"
+base_damage = 10.0
+knockback_force = 100.0
+cooldown = 1.0
+speed = 350.0
+projectile_count = 1
+projectile_cooldown = 0.2
+attack_range = 100.0
+pierce_count = 1
+attack_size = 1.0
+spawn_point_path = NodePath("")
+is_child_attack = false
+knockback_direction = Vector2(0, -1)
+upgrade_ammount = 2.0
+metadata/_custom_type_script = "uid://fprfeqjchw67"
+
+[sub_resource type="Resource" id="Resource_ae1um"]
+script = ExtResource("2_mqtek")
+id = "armor_2"
+icon = "res://resources/Icons/Paper.png"
+display_name = "Paper"
+description = "Decreases damage taken"
+attack_type = 0
+level = 1
+prerequisite_ids = Array[String](["armor_1"])
+type = "upgrade"
+base_damage = 10.0
+knockback_force = 100.0
+cooldown = 1.0
+speed = 350.0
+projectile_count = 1
+projectile_cooldown = 0.2
+attack_range = 100.0
+pierce_count = 1
+attack_size = 1.0
+spawn_point_path = NodePath("")
+is_child_attack = false
+knockback_direction = Vector2(0, -1)
+upgrade_ammount = 2.0
+metadata/_custom_type_script = "uid://fprfeqjchw67"
+
+[sub_resource type="Resource" id="Resource_ngmvn"]
+script = ExtResource("2_mqtek")
+id = "armor_3"
+icon = "res://resources/Icons/Paper.png"
+display_name = "Paper"
+description = "Decreases damage taken"
+attack_type = 0
+level = 1
+prerequisite_ids = Array[String](["armor_1", "armor_2"])
+type = "upgrade"
+base_damage = 10.0
+knockback_force = 100.0
+cooldown = 1.0
+speed = 350.0
+projectile_count = 1
+projectile_cooldown = 0.2
+attack_range = 100.0
+pierce_count = 1
+attack_size = 1.0
+spawn_point_path = NodePath("")
+is_child_attack = false
+knockback_direction = Vector2(0, -1)
+upgrade_ammount = 3.0
+metadata/_custom_type_script = "uid://fprfeqjchw67"
+
+[sub_resource type="Resource" id="Resource_nbwuk"]
+script = ExtResource("2_mqtek")
+id = "whipatk_2"
+icon = "res://resources/Icons/WhipAtk.png"
+display_name = "Wind blow"
+description = "A horizontal wind blow that pushes enemies"
+attack_type = 0
+level = 1
+prerequisite_ids = Array[String](["whipatk_1"])
+type = "weapon"
+attack_scene = ExtResource("5_kyuc6")
+base_damage = 10.0
+knockback_force = 800.0
+cooldown = 2.0
+speed = 350.0
+projectile_count = 2
+projectile_cooldown = 0.3
+attack_range = 100.0
+pierce_count = 1
+attack_size = 1.0
+spawn_point_path = NodePath("")
+is_child_attack = true
+knockback_direction = Vector2(0, -1)
+upgrade_ammount = 0.0
+metadata/_custom_type_script = "uid://fprfeqjchw67"
+
+[sub_resource type="Resource" id="Resource_no6s7"]
+script = ExtResource("2_mqtek")
+id = "whipatk_3"
+icon = "res://resources/Icons/WhipAtk.png"
+display_name = "Wind blow"
+description = "A horizontal wind blow that pushes enemies"
+attack_type = 0
+level = 1
+prerequisite_ids = Array[String](["whipatk_1", "whipatk_2"])
+type = "weapon"
+attack_scene = ExtResource("5_kyuc6")
+base_damage = 10.0
+knockback_force = 800.0
+cooldown = 2.0
+speed = 350.0
+projectile_count = 3
+projectile_cooldown = 0.3
+attack_range = 100.0
+pierce_count = 1
+attack_size = 1.0
+spawn_point_path = NodePath("")
+is_child_attack = true
+knockback_direction = Vector2(0, -1)
+upgrade_ammount = 0.0
+metadata/_custom_type_script = "uid://fprfeqjchw67"
+
+[sub_resource type="Resource" id="Resource_icyto"]
+script = ExtResource("2_mqtek")
+id = "waveatk_2"
+icon = "res://resources/Icons/WaveAtk.png"
+display_name = "PSY Wave"
+description = "A psyonic wave that pushes enemies around"
+attack_type = 0
+level = 2
+prerequisite_ids = Array[String](["waveatk_1"])
+type = "weapon"
+attack_scene = ExtResource("5_nv12s")
+base_damage = 5.0
+knockback_force = 100.0
+cooldown = 6.0
+speed = 350.0
+projectile_count = 2
+projectile_cooldown = 1.5
+attack_range = 100.0
+pierce_count = 1
+attack_size = 1.0
+spawn_point_path = NodePath("")
+is_child_attack = true
+knockback_direction = Vector2(0, -1)
+upgrade_ammount = 0.0
+metadata/_custom_type_script = "uid://fprfeqjchw67"
+
+[sub_resource type="Resource" id="Resource_pe182"]
+script = ExtResource("2_mqtek")
+id = "waveatk_3"
+icon = "res://resources/Icons/WaveAtk.png"
+display_name = "PSY Wave"
+description = "A psyonic wave that pushes enemies around"
+attack_type = 0
+level = 3
+prerequisite_ids = Array[String](["waveatk_1", "waveatk_2"])
+type = "weapon"
+attack_scene = ExtResource("5_nv12s")
+base_damage = 10.0
+knockback_force = 180.0
+cooldown = 4.5
+speed = 350.0
+projectile_count = 3
+projectile_cooldown = 1.5
+attack_range = 100.0
+pierce_count = 1
+attack_size = 1.0
+spawn_point_path = NodePath("")
+is_child_attack = true
+knockback_direction = Vector2(0, -1)
+upgrade_ammount = 0.0
 metadata/_custom_type_script = "uid://fprfeqjchw67"
 
 [resource]
 script = ExtResource("1_hlaex")
-weapons = Array[ExtResource("2_mqtek")]([SubResource("Resource_mqtek"), SubResource("Resource_ws6nd"), SubResource("Resource_kyuc6"), SubResource("Resource_nv12s"), SubResource("Resource_0ew3p"), SubResource("Resource_jr38m")])
+weapons = Array[ExtResource("2_mqtek")]([SubResource("Resource_mqtek"), SubResource("Resource_ws6nd"), SubResource("Resource_kyuc6"), SubResource("Resource_nv12s"), SubResource("Resource_0ew3p"), SubResource("Resource_jr38m"), SubResource("Resource_hav8d"), SubResource("Resource_vny38"), SubResource("Resource_df2j1"), SubResource("Resource_ck2gb"), SubResource("Resource_ae1um"), SubResource("Resource_ngmvn"), SubResource("Resource_nbwuk"), SubResource("Resource_no6s7"), SubResource("Resource_icyto"), SubResource("Resource_pe182")])
 metadata/_custom_type_script = "uid://dgbacrbuksf8g"

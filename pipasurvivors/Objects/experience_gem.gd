@@ -15,7 +15,6 @@ var speed = 0
 @onready var animation = $AnimationPlayer
 
 func _ready():
-	print("ready do gem", animation)
 	if experience <5:
 		animation.play("blink")
 		return

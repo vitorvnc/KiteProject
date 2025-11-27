@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc8dm1bqf66gw"]
+[gd_scene load_steps=5 format=3 uid="uid://dc8dm1bqf66gw"]
 
 [ext_resource type="Texture2D" uid="uid://ck8bhco5dijdu" path="res://resources/sprites/weaponIcons/sword.png" id="1_gcekk"]
 [ext_resource type="Script" uid="uid://db1mhd8j8oqs1" path="res://Utility/item_option.gd" id="1_k7luv"]
+[ext_resource type="Resource" uid="uid://dsm51ep1luk5c" path="res://Utility/weapons_db.tres" id="2_jyb5d"]
 [ext_resource type="FontFile" uid="uid://cxyuy2f2u2034" path="res://resources/Font/tenderness.otf" id="2_k7luv"]
 
 [node name="ItemOption" type="ColorRect"]
@@ -12,6 +13,7 @@ anchor_bottom = 0.039
 offset_bottom = 0.079998
 color = Color(0.621524, 0.621524, 0.621524, 1)
 script = ExtResource("1_k7luv")
+weapons_db = ExtResource("2_jyb5d")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0

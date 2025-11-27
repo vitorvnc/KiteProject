@@ -1,0 +1,15 @@
+res://Attacks/wave_attack.tscn
+res://Levels/first_level.tres
+res://Objects/experience_gem.gd
+res://Attacks/whip_attack.gd
+res://Utility/weapons_db.tres
+res://Levels/first_shader.tres
+res://Player/Pipa.tscn
+res://Player/pipa.gd
+res://Levels/first_level.tscn
+res://Attacks/sphere_attack.tscn
+res://Enemy/enemy.tscn
+res://Utility/item_option.tscn
+res://Utility/upgrade_db.tscn
+res://Utility/enemy_spawner.tscn
+res://Attacks/whipAttack.tscn

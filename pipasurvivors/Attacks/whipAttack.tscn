@@ -1,14 +1,14 @@
 [gd_scene load_steps=8 format=3 uid="uid://dryla151lkqu3"]
 
-[ext_resource type="Texture2D" uid="uid://c4sbw8yjn25uu" path="res://resources/sprites/weapons/SlashFX Combo3 sheet.png" id="1_qk46e"]
 [ext_resource type="Script" uid="uid://dl7645voh1lsx" path="res://Attacks/whip_attack.gd" id="1_wwocr"]
+[ext_resource type="Texture2D" uid="uid://cq4r14qq1atul" path="res://resources/sprites/weapons/SlashFXNEW-Sheet.png" id="2_wwocr"]
 [ext_resource type="AudioStream" uid="uid://bvib1ue2qt10g" path="res://resources/audio/attacks/swoosh_vento.wav" id="2_y60fk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7rxlx"]
-size = Vector2(63, 15)
+size = Vector2(66, 22.75)
 
 [sub_resource type="Animation" id="Animation_wwocr"]
-length = 0.32
+length = 0.25
 step = 0.02
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -17,10 +17,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [1]
+"values": [0, 1, 2, 3]
 }
 
 [sub_resource type="Animation" id="Animation_y60fk"]
@@ -46,6 +46,7 @@ _data = {
 }
 
 [node name="whipAttack" type="Area2D" groups=["attack"]]
+texture_filter = 1
 scale = Vector2(2, 2)
 collision_layer = 4
 collision_mask = 4
@@ -53,17 +54,15 @@ script = ExtResource("1_wwocr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(46, -2)
 rotation = 3.14159
-texture = ExtResource("1_qk46e")
+texture = ExtResource("2_wwocr")
 hframes = 4
-frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(22.5, -2.5)
 shape = SubResource("RectangleShape2D_7rxlx")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-3.5, 0)
 stream = ExtResource("2_y60fk")
 volume_db = -2.766
 pitch_scale = 1.53

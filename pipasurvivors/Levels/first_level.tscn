@@ -1,12 +1,10 @@
-[gd_scene load_steps=17 format=4 uid="uid://y7a7n1x4jotn"]
+[gd_scene load_steps=14 format=4 uid="uid://y7a7n1x4jotn"]
 
 [ext_resource type="Texture2D" uid="uid://clq4s7p1vxigc" path="res://resources/images/SkyBlue_720x1280.png" id="1_u434b"]
 [ext_resource type="Shader" uid="uid://b5l7qrrdeyiu8" path="res://Levels/first_level.tres" id="4_vo4g1"]
 [ext_resource type="PackedScene" uid="uid://xx7fvnk6cg62" path="res://Utility/enemy_spawner.tscn" id="5_1oe6y"]
 [ext_resource type="Texture2D" uid="uid://bf0ak1ox234ny" path="res://resources/images/CLoudBar.png" id="5_8eryj"]
 [ext_resource type="PackedScene" uid="uid://b1la2v8gru4bp" path="res://Player/Pipa.tscn" id="5_u434b"]
-[ext_resource type="PackedScene" uid="uid://6obrgp118fsw" path="res://Enemy/enemy.tscn" id="5_yosxb"]
-[ext_resource type="Script" uid="uid://b52gp36wo8n6y" path="res://Utility/spawn_info.gd" id="6_mgmqp"]
 [ext_resource type="PackedScene" uid="uid://bmiehwxv53bvc" path="res://Objects/experience_gem.tscn" id="8_1oe6y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8eryj"]
@@ -3819,15 +3817,6 @@ texture_region_size = Vector2i(72, 72)
 tile_size = Vector2i(72, 72)
 sources/0 = SubResource("TileSetAtlasSource_u434b")
 
-[sub_resource type="Resource" id="Resource_1oe6y"]
-script = ExtResource("6_mgmqp")
-time_start = 0
-time_end = 60
-enemy = ExtResource("5_yosxb")
-enemy_num = 2
-enemy_spawn_delay = 1
-metadata/_custom_type_script = "uid://b52gp36wo8n6y"
-
 [node name="first_level" type="Node2D"]
 
 [node name="Pipa" parent="." instance=ExtResource("5_u434b")]
@@ -3866,7 +3855,7 @@ tile_map_data = PackedByteArray("AAAAABEAAAAAAAMAAQABABEAAAABAAMAAQACABEAAAAAAAM
 tile_set = SubResource("TileSet_8eryj")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("5_1oe6y")]
-spawns = Array[ExtResource("6_mgmqp")]([SubResource("Resource_1oe6y")])
 
 [node name="ExperienceGem" parent="." instance=ExtResource("8_1oe6y")]
 position = Vector2(436, 595)
+experience = 10

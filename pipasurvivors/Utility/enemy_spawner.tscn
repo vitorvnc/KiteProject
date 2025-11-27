@@ -9,7 +9,7 @@ script = ExtResource("2_5yyhq")
 time_start = 0
 time_end = 80
 enemy = ExtResource("3_nn1td")
-enemy_num = 10
+enemy_num = 2
 enemy_spawn_delay = 1
 metadata/_custom_type_script = "uid://b52gp36wo8n6y"
 

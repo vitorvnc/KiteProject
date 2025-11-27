@@ -24,10 +24,13 @@ var follow_parent: bool = true
 
 @onready var anim = $AnimationPlayer
 
+@onready var whipBody = $Sprite2D
+@onready var whipCollision = $CollisionShape2D
+
 @onready var player = get_tree().get_first_node_in_group("player")
 signal remove_from_array(object)
 
-func setup(initial_position: Vector2, target_position: Vector2, weapon_data: WeaponData = null):
+func setup(initial_position: Vector2, target_position: Vector2, weapon_data: WeaponData = null, flipAttack = false):
 	z_index = 1
 	if weapon_data:
 		current_damage = weapon_data.base_damage
@@ -36,11 +39,18 @@ func setup(initial_position: Vector2, target_position: Vector2, weapon_data: Wea
 	# Usa a posição do Marker2D se existir
 	#print("Parent node: ", get_parent().name if get_parent() else "Nenhum")
 	var whip_pos = get_parent().get_node_or_null("WhipPosition")
-	if whip_pos:
-		#print('whip position: ', whip_pos.position)
-		position = whip_pos.position
+	var whip_pos2 = get_parent().get_node_or_null("WhipPosition2")
+	if whip_pos && whip_pos2:
+		if(flipAttack):
+			position = whip_pos2.position
+		else:
+			position = whip_pos.position
 	else:
 		position = offset_position
+		
+	if flipAttack:
+		whipBody.flip_h = true
+		whipCollision.scale = whipCollision.scale*-1 
 		
 	 #Garante que está na rotação correta
 	rotation = 0  # A rotação será controlada pelo _physics_process
