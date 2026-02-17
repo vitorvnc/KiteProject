@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PipaSurvivors"
-run/main_scene="uid://y7a7n1x4jotn"
+run/main_scene="uid://cmbehx6s81dpo"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://brgvnb8i66r73"]
+
+[ext_resource type="Script" uid="uid://64c7jk6n7pqj" path="res://Player/procedural_animation_test_to_scene.gd" id="1_d826u"]
+[ext_resource type="Texture2D" uid="uid://d38sqxmb8t785" path="res://resources/images/textureRabiola.png" id="2_7cqry"]
+
+[sub_resource type="Curve" id="Curve_xu14p"]
+_data = [Vector2(0, 0.254249), 0.0, -0.74834, 0, 0, Vector2(0.214533, 0.0701133), -0.295641, -0.295641, 0, 0, Vector2(0.602076, 0.0240793), 0.0, 0.0, 0, 0, Vector2(1, 0.00566566), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="procedural_animation" type="Node2D"]
+script = ExtResource("1_d826u")
+
+[node name="body" type="Line2D" parent="."]
+position = Vector2(361, 293)
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+width = 60.0
+width_curve = SubResource("Curve_xu14p")
+texture = ExtResource("2_7cqry")
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

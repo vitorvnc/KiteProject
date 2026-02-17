@@ -59,7 +59,6 @@ hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["loot"]]
 visible = false
-position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_2psq6")
 
 [node name="snd_collected" type="AudioStreamPlayer" parent="."]

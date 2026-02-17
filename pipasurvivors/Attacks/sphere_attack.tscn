@@ -13,6 +13,7 @@ scale = Vector2(0.5, 0.5)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_kup77")
+knockback_force = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

@@ -4,7 +4,7 @@ var time = 0
 
 @export var hp = 80.0
 @export var maxhp = 80.0
-@export var movement_speed = 60.0
+@export var movement_speed = 50.0
 
 @export var rotation_speed = 4.5
 @export var upper_limit: float = -20 #LIMITE SUPERIOR DA TELA
@@ -27,6 +27,11 @@ var collected_experience = 0
 @onready var sndLevelUp = get_node("%snd_levelup")
 @onready var healthBar = get_node("%HealthBar")
 @onready var lblTimer = get_node("%lblTimer")
+
+@onready var deathPanel = get_node("%DeathPanel")
+@onready var lblResult = get_node("%lbl_Result")
+@onready var sndVictory = get_node ("%snd_victory")
+@onready var sndLose = get_node ("%snd_lose")
 
 #tabela grid com upgrades e weapons
 @onready var collectedWeapons = get_node("%CollectedWeapons")
@@ -57,8 +62,8 @@ var additional_attacks = 0
 var enemy_close = []
 var target_enemy: Node2D = null
 
-
-
+#Signal
+signal playerdeath
 
 func _ready():
 	set_expbar(experience, calculate_experiencecap())
@@ -76,7 +81,6 @@ func _physics_process(delta: float) -> void:
 	movement()
 	#if y_altura < upper_limit or y_altura > lower_limit:
 		#print("MORREU")
-		
 	var collision = move_and_collide(velocity * delta)
 	update_attack_directions()
 	# Atualiza o inimigo alvo periodicamente
@@ -109,7 +113,9 @@ func _on_hurt_box_hurt(damage: Variant, _angle, _knockback) -> void:
 	hp-= damage-armor
 	healthBar.max_value = maxhp
 	healthBar.value = hp
-	print(hp)
+	if hp <= 0:
+		death()
+	
 #ATTACK AREA
 # Atualiza a direção dos ataques (se necessário)
 func update_attack_directions():
@@ -443,3 +449,22 @@ func adjust_gui_collection(upgrade):
 					collectedWeapons.add_child(new_item)
 				"upgrade":
 					collectedUpgrades.add_child(new_item)
+
+func death():
+	deathPanel.visible = true
+	emit_signal("playerdeath")
+	get_tree().paused = true
+	var tween = deathPanel.create_tween()
+	tween.tween_property(deathPanel, "position", Vector2(220,50), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.play()
+	if time >= 300:
+		lblResult.text = "You Win"
+		sndVictory.play()
+	else:
+		lblResult.text = "You Lose"
+		sndLose.play()
+
+
+func _on_btn_menu_click_end() -> void:
+	get_tree().paused = false
+	var _level = get_tree().change_scene_to_file("res://TitleScreen/menu.tscn")

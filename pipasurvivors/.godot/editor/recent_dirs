@@ -1,10 +1,13 @@
+res://
+res://Player
+res://resources/Music
+res://TitleScreen
+res://Utility
 res://Player/GUI
 res://resources/sprites/weapons
-res://Utility
 res://resources/Font
 res://Enemy
 res://Objects
 res://Attacks
 res://Levels
-res://Player
 res://Utility/Camera

@@ -75,6 +75,7 @@ func enemy_hit(charge = 1):
 		
 func get_knockback_direction() -> Vector2:
 	# Para whip attack, o knockback é sempre para frente do player
+	var parent_rotation = get_parent().rotation
 	return Vector2.UP.rotated(get_parent().rotation)
 	
 func _on_body_entered(body: Node2D) -> void:

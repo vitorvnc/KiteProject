@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmbehx6s81dpo"]
+
+[ext_resource type="FontFile" uid="uid://cxyuy2f2u2034" path="res://resources/Font/tenderness.otf" id="1_2kd3f"]
+[ext_resource type="Script" uid="uid://s6j7wtijeeks" path="res://TitleScreen/menu.gd" id="1_t4alp"]
+[ext_resource type="PackedScene" uid="uid://1umn4koqeqy8" path="res://Utility/basic_button.tscn" id="3_cxswi"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t4alp")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 720.0
+offset_bottom = 1280.0
+color = Color(0.329412, 1, 1, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 720.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_2kd3f")
+theme_override_font_sizes/font_size = 72
+text = "Pipas vs Aliens"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btn_play" parent="." instance=ExtResource("3_cxswi")]
+layout_mode = 0
+offset_left = 181.0
+offset_top = 253.0
+offset_right = 501.0
+offset_bottom = 409.0
+text = "Play
+"
+
+[node name="btn_exit" parent="." instance=ExtResource("3_cxswi")]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 498.0
+offset_right = 514.0
+offset_bottom = 682.0
+text = "Exit
+"
+
+[connection signal="click_end" from="btn_play" to="." method="_on_btn_play_click_end"]
+[connection signal="click_end" from="btn_exit" to="." method="_on_btn_exit_click_end"]

@@ -4,33 +4,37 @@ extends CharacterBody2D
 @export var knockback_recovery = 10.5
 @export var movement_speed = 80.0
 @export var experience = 1
+@export var enemy_damage = 10
 var knockback = Vector2.ZERO
 
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite = $Sprite2D
 @onready var collisionEnemy = $CollisionEnemy
-@onready var anim = $AnimationPlayer
+@onready var anim = $Sprite2D/AnimationPlayer
 
 @onready var fogo_body = $FogoBody
 @onready var animFire = $FogoBody/AnimationPlayerFire
 @onready var spriteFire = $FogoBody/FogoSprite
 @onready var snd_hit = $snd_hit
+@onready var hitBox = $HitBox
 
 var exp_gem = preload("res://Objects/experience_gem.tscn")
 
 # Posição original do FogoBody quando não está flipado
-var original_fire_position = Vector2(24, -2)
+var original_fire_position = Vector2(22, 1)
 # Posição flipada do FogoBody
-var flipped_fire_position = Vector2(-24, -2)
+var flipped_fire_position = Vector2(-20, 1)
 
 var death_anim = preload("res://Enemy/death_explosion.tscn")
 
 signal remove_from_array(object)
 
 func _ready():
-	anim.play("walk")
-	animFire.play("fogoExplode")
+		anim.play("walk")
+		animFire.play("fogoExplode")
+		hitBox.damage = enemy_damage
+
 
 func _physics_process(delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)

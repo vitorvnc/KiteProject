@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://4a1gndn4b5i7"]
+
+[ext_resource type="Script" uid="uid://bjou7m3serfvh" path="res://cirlce_test.gd" id="1_44t0q"]
+
+[node name="WavyCircle" type="Node2D"]
+modulate = Color(1, 0, 1, 1)
+self_modulate = Color(0, 1, 0, 1)
+position = Vector2(291, 250)
+script = ExtResource("1_44t0q")
+color = Color(0.882376, 0.11558, 1, 1)
+geometry_wave_frequency = 20.0
+fill_opacity = 0.103
+concentric_circles = 7
+circle_spacing = 0.2
+inner_circles_opacity = 1.0
+shader_pulse_speed = 5.0
+shader_glow_intensity = 0.297
