@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8k00g4wphiff"]
+[gd_scene load_steps=9 format=3 uid="uid://b8k00g4wphiff"]
 
 [ext_resource type="Texture2D" uid="uid://ce2k3krhvdvrj" path="res://resources/sprites/weapons/WaveAttkV1-Sheet.png" id="1_ky5jg"]
 [ext_resource type="Script" uid="uid://cii4dglft072x" path="res://Attacks/wave_attack.gd" id="1_y2wny"]
+[ext_resource type="PackedScene" uid="uid://4a1gndn4b5i7" path="res://cirlce_test.tscn" id="2_dd1ld"]
 [ext_resource type="AudioStream" uid="uid://d273ilflnfuuh" path="res://resources/audio/attacks/WaveSnd.wav" id="2_rwqwi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y2wny"]
@@ -52,8 +53,15 @@ collision_mask = 4
 script = ExtResource("1_y2wny")
 knockback_force = 150.0
 
+[node name="WavyCircle" parent="." instance=ExtResource("2_dd1ld")]
+unique_name_in_owner = true
+position = Vector2(0, 0)
+scale = Vector2(0.3, 0.3)
+geometry_wave_frequency = 18.0
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.73, 0.413, 0.805, 0.47)
+visible = false
+self_modulate = Color(0.729412, 0.411765, 0.803922, 1)
 show_behind_parent = true
 z_index = -1
 texture_filter = 1

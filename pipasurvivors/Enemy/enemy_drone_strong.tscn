@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dh3j44x0puei8" path="res://Enemy/enemy.gd" id="1_mydk5"]
 [ext_resource type="Texture2D" uid="uid://co8hdkjh15j12" path="res://resources/sprites/FireOnly2-Sheet.png" id="2_c3om3"]
-[ext_resource type="Texture2D" uid="uid://dcvepyry5ogeh" path="res://resources/sprites/Drone_Strong-Sheet.png" id="3_mydk5"]
+[ext_resource type="Texture2D" uid="uid://ckexa5pkvju8v" path="res://resources/sprites/Drone_Strong_V2-Sheet.png" id="3_mydk5"]
 [ext_resource type="PackedScene" uid="uid://exgw1ctdddun" path="res://Utility/hurt_box.tscn" id="4_tcgvx"]
 [ext_resource type="PackedScene" uid="uid://dw02vqexp28fh" path="res://Utility/hit_box.tscn" id="5_5r2tj"]
 [ext_resource type="AudioStream" uid="uid://cwshg20tglvi0" path="res://resources/audio/enemy/Retro Impact Punch Hurt 01.wav" id="6_o5cod"]
@@ -94,7 +94,6 @@ radius = 16.8
 height = 41.6
 
 [node name="enemy_drone_strong" type="CharacterBody2D" groups=["enemy"]]
-scale = Vector2(1.25, 1.25)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_mydk5")
@@ -131,6 +130,7 @@ libraries = {
 }
 
 [node name="CollisionEnemy" type="CollisionShape2D" parent="."]
+visible = false
 z_as_relative = false
 rotation = 1.5708
 scale = Vector2(2, 2)
@@ -148,6 +148,7 @@ shape = SubResource("CapsuleShape2D_ncf7h")
 debug_color = Color(0.905, 0, 0.748, 0.381)
 
 [node name="HitBox" parent="." instance=ExtResource("5_5r2tj")]
+visible = false
 collision_layer = 2
 collision_mask = 2
 

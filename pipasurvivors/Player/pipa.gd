@@ -1,22 +1,47 @@
 extends CharacterBody2D
+#region PROPRIEDADES
 
-var time = 0
 
 @export var hp = 80.0
 @export var maxhp = 80.0
 @export var movement_speed = 50.0
-
 @export var rotation_speed = 4.5
 @export var upper_limit: float = -20 #LIMITE SUPERIOR DA TELA
 @export var lower_limit: float = 1300 #LIMITE INFERIOR DA TELA
-
 @onready var walkTimer = get_node("%walkAnimationTimer")
 @onready var sprite = $SpritePipa
 @onready var collisionPipa = $CollisionPipa
 
+var time = 0
 var experience = 0
 var experience_level = 1
 var collected_experience = 0
+
+#ATTACK E WEAPONS
+@export var attack_spawn_point: Marker2D  # Ponto de spawn dos ataques Whip
+@export var weapons_db: WeaponDatabase
+@export var starting_weapons: Array[Dictionary] = [  # IDs e levels das armas iniciais
+	{'id': 'waveatk_1', 'level': 1}
+]
+var active_attacks: Array[Node] = []
+var collected_weapons: Array[Dictionary] = []  # {data: WeaponData, level: x, timer: Timer}
+
+var collectedIdsCompareStringHist: Array[String] = []
+
+# DASH SYSTEM
+@onready var snd_dash = get_node("%snd_dash")
+@export_group("Dash System")
+@export var dash_enabled: bool = true
+@export var dash_speed_multiplier: float = 3.0  # Multiplicador de velocidade durante o dash
+@export var dash_duration: float = 0.3  # Duração do dash em segundos
+@export var dash_cooldown: float = 1.0  # Cooldown entre dashes
+@export var dash_particles_enabled: bool = true  # Se quer usar partículas
+
+var is_dashing: bool = false
+var dash_timer: float = 0.0
+var dash_cooldown_timer: float = 0.0
+var original_movement_speed: float
+var dash_particles: GPUParticles2D  # Opcional: para efeito visual
 
 #GUI
 @onready var expBar = get_node("%ExperienceBar")
@@ -38,17 +63,6 @@ var collected_experience = 0
 @onready var collectedUpgrades = get_node("%CollectedUpgrades")
 @onready var itemContainer = preload("res://Player/GUI/item_container.tscn")
 
-#ATTACK E WEAPONS
-@export var attack_spawn_point: Marker2D  # Ponto de spawn dos ataques Whip
-@export var weapons_db: WeaponDatabase
-@export var starting_weapons: Array[Dictionary] = [  # IDs e levels das armas iniciais
-	{'id': 'waveatk_1', 'level': 1}
-]
-var active_attacks: Array[Node] = []
-var collected_weapons: Array[Dictionary] = []  # {data: WeaponData, level: x, timer: Timer}
-
-var collectedIdsCompareStringHist: Array[String] = []
-
 #UPGRADES
 var collected_upgrades = []
 var upgrade_options = []
@@ -64,27 +78,45 @@ var target_enemy: Node2D = null
 
 #Signal
 signal playerdeath
+#endregion
 
+#region FUNCTIONS
 func _ready():
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0,0,0)
 	attack_spawn_point = $AttackSpawnPoint
 	var weapon = load("res://Utility/weapons_db.tres::Resource_mqtek")
-
 	load_starting_weapons()
 	
-
-#MOVIMENTO START
+		# Salva a velocidade original
+	original_movement_speed = movement_speed
+	
+	# Opcional: Cria partículas para o dash
+	if dash_particles_enabled:
+		setup_dash_particles()
+	
+#region MOVIMENTO
 func _physics_process(delta: float) -> void:
+	# Processa timers do dash
+	if is_dashing:
+		process_dash(delta)
+
+	if dash_cooldown_timer > 0:
+		dash_cooldown_timer -= delta
+
 	var y_altura = global_position.y
 	handle_rotation()
 	movement()
-	#if y_altura < upper_limit or y_altura > lower_limit:
-		#print("MORREU")
+
+	# Input do dash (apenas uma vez quando pressiona espaço)
+	if Input.is_action_just_pressed("spacebar") and dash_enabled and not is_dashing and dash_cooldown_timer <= 0:
+		activate_dash()
+	
 	var collision = move_and_collide(velocity * delta)
 	update_attack_directions()
+	
 	# Atualiza o inimigo alvo periodicamente
-	if Engine.get_frames_drawn() % 30 == 0:  # A cada 30 frames
+	if Engine.get_frames_drawn() % 30 == 0:
 		update_target_enemy()
 
 func handle_rotation():
@@ -104,7 +136,171 @@ func movement():
 			sprite.rotation = 0.02
 		walkTimer.start()
 	move_and_slide()
-#MOVIMENTO END
+	
+#DASH
+func setup_dash_particles():
+	# Cria um sistema de partículas para o efeito de dash
+	dash_particles = GPUParticles2D.new()
+	dash_particles.amount = 6
+	dash_particles.lifetime = 0.4
+	dash_particles.speed_scale = 0.6
+	dash_particles.one_shot = true
+	dash_particles.emitting = false
+	
+	# Configura o material das partículas
+	var particle_material = ParticleProcessMaterial.new()
+	particle_material.direction = Vector3(0, 1, 0)  # Direção para baixo
+	particle_material.spread = 45.0  # AUMENTADO: Mais espalhamento horizontal
+	particle_material.gravity = Vector3(0, 0, 0)
+	particle_material.initial_velocity_min = 40.0
+	particle_material.initial_velocity_max = 80.0
+	particle_material.angular_velocity_min = 0.0
+	particle_material.angular_velocity_max = 0.0
+	particle_material.scale_min = 0.5
+	particle_material.scale_max = 1.0
+	dash_particles.process_material = particle_material
+	
+	# Configura a textura com traços em posições alternadas (zig-zag)
+	var wind_texture = create_zigzag_streaks_texture()
+	dash_particles.texture = wind_texture
+	
+	# Posiciona as partículas atrás da pipa
+	dash_particles.position = Vector2(0, 15)
+	
+	add_child(dash_particles)
+
+func create_zigzag_streaks_texture() -> Texture2D:
+	# Cria uma textura com múltiplos traços em padrão zig-zag
+	var width = 35   # Largura maior para espalhar os traços
+	var height = 60  # Altura para os traços verticais
+	var image = Image.create(width, height, false, Image.FORMAT_RGBA8)
+	image.fill(Color.TRANSPARENT)
+	
+	# Número de traços na textura (serão 6 traços em zig-zag)
+	var num_streaks = 4
+	var streak_height = 26  # Altura de cada traço
+	var streak_width = 2.5    # Largura de cada traço
+	
+	# Cor base verde
+	var base_hue = 0.25
+	var base_saturation = 0.8
+	var base_value = 0.8
+	
+	for i in range(num_streaks):
+		# Posição X alternada (zig-zag)
+		var t = float(i) / float(num_streaks - 1) if num_streaks > 1 else 0
+		
+		# Zig-zag: vai da esquerda pra direita e volta
+		var zigzag_offset = sin(t * PI * 2) * 0.5 + 0.5  # 0 a 1
+		var x_position = 5 + zigzag_offset * (width - 10)  # Espaço das bordas
+		
+		# Posição Y com leve variação
+		var y_position = 5 + t * (height - streak_height - 10)
+		
+		# MUDANÇA: Opacidade reduzida para 50%
+		var color = Color.from_hsv(
+			base_hue + (i % 2) * 0.05,
+			base_saturation + randf() * 0.2,
+			base_value + randf() * 0.2,
+			0.5  # MUDANÇA: Opacidade fixa em 50% (era 0.9)
+		)
+		
+		# Ângulo levemente inclinado (alterna direção)
+		var angle = (i - (num_streaks - 1) / 2.0) * 0.08
+		if i % 2 == 0:
+			angle = -angle  # Inverte ângulo para efeito zig-zag
+		
+		# Desenha o traço
+		draw_single_streak(image, x_position, y_position, streak_width, streak_height, angle, color)
+	
+	# Suaviza a textura
+	image.blit_rect(image, Rect2(0, 0, width, height), Vector2(0, 0))
+	
+	var texture = ImageTexture.create_from_image(image)
+	return texture
+
+func draw_single_streak(image: Image, x_center: float, y_center: float, width: int, height: int, angle: float, color: Color):
+	# Desenha um único traço com a posição, tamanho e ângulo especificados
+	for y in range(height):
+		# Espessura variável ao longo do traço (mais grosso no meio)
+		var t = float(y) / float(height - 1) if height > 1 else 0
+		var thickness = sin(t * PI) * width * 0.8
+		
+		# Posição X com ângulo
+		var x_offset = tan(angle) * (y - height/2)
+		var center_x = x_center + x_offset
+		
+		for x in range(-int(thickness), int(thickness) + 1):
+			var pixel_x = int(center_x + x)
+			var pixel_y = int(y_center + y)
+			
+			if pixel_x >= 0 and pixel_x < image.get_width() and pixel_y >= 0 and pixel_y < image.get_height():
+				# Gradiente de opacidade (agora com base na opacidade de 50%)
+				var dist_factor = 1.0 - abs(float(x) / max(thickness, 1.0))
+				var alpha = (0.3 + 0.7 * pow(dist_factor, 1.5)) * color.a  # MUDANÇA: Multiplica pela opacidade da cor
+				
+				var final_color = color
+				final_color.a = alpha  # MUDANÇA: Define alpha diretamente
+				
+				image.set_pixel(pixel_x, pixel_y, final_color)
+
+func activate_dash():
+	is_dashing = true
+	dash_timer = dash_duration
+	
+	# Aplica o multiplicador de velocidade
+	movement_speed = original_movement_speed * dash_speed_multiplier
+	
+	# Efeito visual: partículas
+	if dash_particles_enabled and dash_particles:
+		dash_particles.emitting = true
+		dash_particles.restart()
+	
+	# Opcional: Efeito de escala/sprite
+	create_dash_visual_effect()
+	
+	# Opcional: Som de dash
+	play_dash_sound()
+	
+	print("Dash ativado! Velocidade: ", movement_speed)
+
+func process_dash(delta: float):
+	dash_timer -= delta
+	
+	if dash_timer <= 0:
+		end_dash()
+
+func end_dash():
+	is_dashing = false
+	movement_speed = original_movement_speed
+	dash_cooldown_timer = dash_cooldown
+	
+	# Efeito visual de fim de dash
+	if dash_particles_enabled and dash_particles:
+		dash_particles.emitting = false
+	
+	print("Dash terminado. Cooldown: ", dash_cooldown_timer)
+
+func create_dash_visual_effect():
+	# Efeito rápido de escala no sprite da pipa
+	if sprite:
+		var original_scale = sprite.scale
+		var tween = create_tween()
+		tween.tween_property(sprite, "scale", original_scale * 1.1, 0.1)
+		tween.tween_property(sprite, "scale", original_scale, 0.2)
+		
+		# Efeito de rotação rápida
+		var original_rotation_offset = sprite.rotation
+		tween.parallel().tween_property(sprite, "rotation", original_rotation_offset + 0.2, 0.1)
+		tween.parallel().tween_property(sprite, "rotation", original_rotation_offset, 0.2)
+
+func play_dash_sound():
+	# Se você tiver um nó de áudio para efeitos
+	if has_node("%snd_dash"):
+		var dash_sound = get_node("%snd_dash") as AudioStreamPlayer
+		if dash_sound:
+			dash_sound.play()
+#endregion
 
 func killPlayer():
 	pass
@@ -116,7 +312,7 @@ func _on_hurt_box_hurt(damage: Variant, _angle, _knockback) -> void:
 	if hp <= 0:
 		death()
 	
-#ATTACK AREA
+#region #ATAQUES E ARMAS
 # Atualiza a direção dos ataques (se necessário)
 func update_attack_directions():
 	# Filtra ataques que ainda estão na árvore de cena
@@ -135,7 +331,6 @@ func set_attacks_active(active: bool):
 		attack.monitorable = active
 		
 func load_starting_weapons():
-
 	for i in starting_weapons:
 		var weapon_id = i['id']
 		var weapon_data = weapons_db.get_weapon_by_id(weapon_id)
@@ -244,19 +439,14 @@ func get_random_target():
 	else:
 		return Vector2.UP
 
-
 func _on_enemy_detection_area_body_entered(body: Node2D) -> void:
 	if not enemy_close.has(body):
 		enemy_close.append(body)
-
 
 func _on_enemy_detection_area_body_exited(body: Node2D) -> void:
 	if enemy_close.has(body):
 		enemy_close.erase(body)
 
-
-
-#Attack NOVO START
 func update_target_enemy():
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	if enemies.size() > 0:
@@ -271,7 +461,7 @@ func update_target_enemy():
 				closest_enemy = enemy
 				
 		target_enemy = closest_enemy
-		
+
 func _spawn_weapon_attack(weapon_id: String):
 	var weapon_data = weapons_db.get_weapon_by_id(weapon_id)
 	
@@ -311,13 +501,18 @@ func _spawn_weapon_attack(weapon_id: String):
 	# Se ainda tem munição, inicia o timer para o próximo projétil
 	if weapon_entry["current_ammo"] > 0:
 		weapon_entry["projectile_timer"].start()
-#Attack NOVO END
 
+func _find_weapon_index(weapon_id: String) -> int:
+	for i in range(collected_weapons.size()):
+		if collected_weapons[i]["data"].id.begins_with(weapon_id.split("_")[0]):
+			return i
+	return -1
+
+#endregion
 
 func _on_grab_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("loot"):
 		area.target = self
-
 
 func _on_collect_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("loot"):
@@ -358,7 +553,7 @@ func levelup():
 	sndLevelUp.play()
 	lblLevel.text = str("Level: ", experience_level)
 	var tween = levelPanel.create_tween()
-	tween.tween_property(levelPanel, "position", Vector2(260,500), 0.2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
+	tween.tween_property(levelPanel, "position", Vector2(100,200), 0.2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
 	tween.play()
 	levelPanel.visible = true
 	var options = 0
@@ -366,6 +561,7 @@ func levelup():
 	while options < optionsmax:
 		var option_choice = itemOptions.instantiate()
 		option_choice.item = get_random_item()
+		option_choice.position.x = option_choice.position.x + 50
 		upgradeOptions.add_child(option_choice)
 		options += 1
 	get_tree().paused = true
@@ -417,13 +613,7 @@ func get_random_item():
 		return randomitem
 	else:
 		return null
-		
-func _find_weapon_index(weapon_id: String) -> int:
-	for i in range(collected_weapons.size()):
-		if collected_weapons[i]["data"].id.begins_with(weapon_id.split("_")[0]):
-			return i
-	return -1
-	
+
 func change_time(argtime = 0):
 	time = argtime
 	var get_m = int(time/60.0)
@@ -455,7 +645,7 @@ func death():
 	emit_signal("playerdeath")
 	get_tree().paused = true
 	var tween = deathPanel.create_tween()
-	tween.tween_property(deathPanel, "position", Vector2(220,50), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(deathPanel, "position", Vector2(100,120), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.play()
 	if time >= 300:
 		lblResult.text = "You Win"
@@ -464,7 +654,7 @@ func death():
 		lblResult.text = "You Lose"
 		sndLose.play()
 
-
 func _on_btn_menu_click_end() -> void:
 	get_tree().paused = false
 	var _level = get_tree().change_scene_to_file("res://TitleScreen/menu.tscn")
+#endregion

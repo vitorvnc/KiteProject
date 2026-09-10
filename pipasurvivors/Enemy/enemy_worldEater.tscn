@@ -1,8 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dpbbqqg6i7uyo"]
+[gd_scene load_steps=24 format=3 uid="uid://dpbbqqg6i7uyo"]
 
 [ext_resource type="Script" uid="uid://dh3j44x0puei8" path="res://Enemy/enemy.gd" id="1_cljdu"]
 [ext_resource type="Texture2D" uid="uid://co8hdkjh15j12" path="res://resources/sprites/FireOnly2-Sheet.png" id="2_mjkqm"]
-[ext_resource type="Texture2D" uid="uid://7k73w0giikib" path="res://resources/sprites/WorldEater-Sheet.png" id="3_cljdu"]
+[ext_resource type="Texture2D" uid="uid://dha8fsmuf6efo" path="res://resources/sprites/worldEaterV2-Sheet.png" id="3_cljdu"]
 [ext_resource type="PackedScene" uid="uid://exgw1ctdddun" path="res://Utility/hurt_box.tscn" id="4_g1iud"]
 [ext_resource type="PackedScene" uid="uid://dw02vqexp28fh" path="res://Utility/hit_box.tscn" id="5_wdo76"]
 [ext_resource type="AudioStream" uid="uid://cwshg20tglvi0" path="res://resources/audio/enemy/Retro Impact Punch Hurt 01.wav" id="6_7kdtb"]
@@ -61,6 +61,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_sf10l"]
 resource_name = "walk"
+length = 1.5
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -69,10 +70,10 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.633333, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.766667, 0.933333, 1.1, 1.26667, 1.43333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3er24"]
@@ -82,26 +83,64 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_px1sc"]
-radius = 14.2
-height = 38.8
+radius = 38.0
+height = 76.8
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7kdtb"]
+radius = 15.2
+height = 46.4
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sd3si"]
+radius = 15.2
+height = 46.4
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bhyx7"]
+radius = 25.2
+height = 52.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4bp81"]
+radius = 26.4
+height = 58.4
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ncf7h"]
-radius = 32.4
-height = 80.0
+radius = 46.0
+height = 104.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m6jha"]
-radius = 32.4
-height = 79.2
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cljdu"]
+resource_local_to_scene = true
+radius = 38.4
+height = 76.8
 
-[node name="enemy_alien_strong" type="CharacterBody2D" groups=["enemy"]]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mjkqm"]
+resource_local_to_scene = true
+radius = 26.4
+height = 59.2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h4kbw"]
+resource_local_to_scene = true
+radius = 26.4
+height = 59.2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1iud"]
+resource_local_to_scene = true
+radius = 16.0
+height = 51.2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wdo76"]
+resource_local_to_scene = true
+radius = 16.0
+height = 51.2
+
+[node name="enemy_worldEater" type="CharacterBody2D" groups=["enemy"]]
 scale = Vector2(2.5, 2.5)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_cljdu")
 hp = 99999
 knockback_recovery = 150.0
-movement_speed = 500.0
+movement_speed = 100.0
 experience = 100
+enemy_damage = 1
 
 [node name="FogoBody" type="CharacterBody2D" parent="."]
 visible = false
@@ -123,7 +162,7 @@ libraries = {
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("3_cljdu")
-hframes = 6
+hframes = 12
 region_rect = Rect2(11.675, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
@@ -134,11 +173,31 @@ autoplay = "walk"
 
 [node name="CollisionEnemy" type="CollisionShape2D" parent="."]
 z_as_relative = false
-position = Vector2(0, 4.8)
-scale = Vector2(2, 2)
+position = Vector2(0, -5.6)
 shape = SubResource("CapsuleShape2D_px1sc")
 
+[node name="CollisionGarraEsquerda" type="CollisionShape2D" parent="."]
+z_as_relative = false
+position = Vector2(-42.4, -34)
+shape = SubResource("CapsuleShape2D_7kdtb")
+
+[node name="CollisionGarraDireita" type="CollisionShape2D" parent="."]
+z_as_relative = false
+position = Vector2(44.4, -34)
+shape = SubResource("CapsuleShape2D_sd3si")
+
+[node name="CollisionGarraInferiorEsquerda" type="CollisionShape2D" parent="."]
+z_as_relative = false
+position = Vector2(-26.4, 36.4)
+shape = SubResource("CapsuleShape2D_bhyx7")
+
+[node name="CollisionGarraInferiorDireita" type="CollisionShape2D" parent="."]
+z_as_relative = false
+position = Vector2(23.6, 34)
+shape = SubResource("CapsuleShape2D_4bp81")
+
 [node name="HurtBox" parent="." instance=ExtResource("4_g1iud")]
+visible = false
 collision_layer = 4
 collision_mask = 4
 HurtBoxType = 1
@@ -153,8 +212,47 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
-position = Vector2(0, 3.2)
-shape = SubResource("CapsuleShape2D_m6jha")
+position = Vector2(-5.96046e-08, -5.2)
+shape = SubResource("CapsuleShape2D_cljdu")
+debug_color = Color(0, 0.289, 0.75, 0.392)
+
+[node name="HitBox2" parent="." instance=ExtResource("5_wdo76")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox2" index="0"]
+position = Vector2(24, 34)
+shape = SubResource("CapsuleShape2D_mjkqm")
+debug_color = Color(0, 0.289, 0.75, 0.392)
+
+[node name="HitBox3" parent="." instance=ExtResource("5_wdo76")]
+position = Vector2(-50, -0.4)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox3" index="0"]
+position = Vector2(24, 34)
+shape = SubResource("CapsuleShape2D_h4kbw")
+debug_color = Color(0, 0.289, 0.75, 0.392)
+
+[node name="HitBox4" parent="." instance=ExtResource("5_wdo76")]
+position = Vector2(-60.8, -67.6)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox4" index="0"]
+position = Vector2(18, 32)
+shape = SubResource("CapsuleShape2D_g1iud")
+debug_color = Color(0, 0.289, 0.75, 0.392)
+
+[node name="HitBox5" parent="." instance=ExtResource("5_wdo76")]
+position = Vector2(-60.8, -67.6)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox5" index="0"]
+position = Vector2(105.2, 32)
+shape = SubResource("CapsuleShape2D_wdo76")
 debug_color = Color(0, 0.289, 0.75, 0.392)
 
 [node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
@@ -166,3 +264,7 @@ pitch_scale = 0.51
 
 [editable path="HurtBox"]
 [editable path="HitBox"]
+[editable path="HitBox2"]
+[editable path="HitBox3"]
+[editable path="HitBox4"]
+[editable path="HitBox5"]

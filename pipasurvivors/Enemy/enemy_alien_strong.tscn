@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dh3j44x0puei8" path="res://Enemy/enemy.gd" id="1_qx6ht"]
 [ext_resource type="Texture2D" uid="uid://co8hdkjh15j12" path="res://resources/sprites/FireOnly2-Sheet.png" id="2_5qngq"]
-[ext_resource type="Texture2D" uid="uid://dqm7fbhfetk17" path="res://resources/sprites/Alien_Strong-Sheet.png" id="2_qx6ht"]
+[ext_resource type="Texture2D" uid="uid://dy3vcl81v7e1c" path="res://resources/sprites/AlienStrong_V2-Sheet.png" id="3_5qngq"]
 [ext_resource type="PackedScene" uid="uid://exgw1ctdddun" path="res://Utility/hurt_box.tscn" id="3_d6ev0"]
 [ext_resource type="PackedScene" uid="uid://dw02vqexp28fh" path="res://Utility/hit_box.tscn" id="4_cnfdb"]
 [ext_resource type="AudioStream" uid="uid://cwshg20tglvi0" path="res://resources/audio/enemy/Retro Impact Punch Hurt 01.wav" id="5_atqua"]
@@ -82,19 +82,18 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_px1sc"]
-radius = 8.5
-height = 21.0
+radius = 25.0
+height = 70.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ncf7h"]
-radius = 15.2
-height = 44.8
+radius = 25.0
+height = 70.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m6jha"]
-radius = 16.8
-height = 44.0
+radius = 25.0
+height = 70.0
 
 [node name="enemy_alien_strong" type="CharacterBody2D" groups=["enemy"]]
-scale = Vector2(2.5, 2.5)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_qx6ht")
@@ -122,7 +121,7 @@ libraries = {
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_qx6ht")
+texture = ExtResource("3_5qngq")
 hframes = 6
 region_rect = Rect2(11.675, 0, 0, 0)
 
@@ -134,10 +133,11 @@ autoplay = "walk"
 
 [node name="CollisionEnemy" type="CollisionShape2D" parent="."]
 z_as_relative = false
-scale = Vector2(2, 2)
+position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_px1sc")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_d6ev0")]
+position = Vector2(0, -5)
 collision_layer = 4
 collision_mask = 4
 HurtBoxType = 1
@@ -151,6 +151,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_m6jha")
 debug_color = Color(0, 0.289, 0.75, 0.392)
 

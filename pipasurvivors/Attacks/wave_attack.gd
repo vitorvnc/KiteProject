@@ -14,6 +14,8 @@ var angle = Vector2.ZERO
 @export var attack_size: float = 1.0
 @export var pierce_count: int = 1  # Quantos inimigos pode acertar antes de desaparecer
 
+
+
 var current_damage: float
 var current_knockback: float
 var direction: Vector2 = Vector2.ZERO
@@ -23,7 +25,7 @@ var hit_enemies: Array[Node] = []
 var follow_parent: bool = true
 
 @onready var anim = $AnimationPlayer
-
+@onready var wavyCircle = get_node("%WavyCircle")
 @onready var player = get_tree().get_first_node_in_group("player")
 signal remove_from_array(object)
 
@@ -57,6 +59,7 @@ func setup(initial_position: Vector2, target_position: Vector2, weapon_data: Wea
 func _ready():
 	z_index = -1
 	show_behind_parent = true
+	wavyCircle.ready
 	anim.play("wavePass")
 	
 func _physics_process(delta):
@@ -75,7 +78,7 @@ func enemy_hit(charge = 1):
 		
 func get_knockback_direction() -> Vector2:
 	# Para whip attack, o knockback é sempre para frente do player
-	var parent_rotation = get_parent().rotation
+	#var parent_rotation = get_parent().rotation
 	return Vector2.UP.rotated(get_parent().rotation)
 	
 func _on_body_entered(body: Node2D) -> void:

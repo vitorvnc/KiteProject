@@ -4,15 +4,12 @@
 [ext_resource type="Script" uid="uid://cig6im4844g6h" path="res://Player/GUI/item_container.gd" id="2_1ykcd"]
 
 [node name="ItemContainer" type="TextureRect"]
-offset_right = 12.0
-offset_bottom = 12.0
+offset_right = 32.0
+offset_bottom = 32.0
 texture = ExtResource("1_tujht")
 script = ExtResource("2_1ykcd")
 
 [node name="ItemTexture" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 34.0
-offset_bottom = 34.0
-scale = Vector2(0.26, 0.26)
+offset_right = 20.0
+offset_bottom = 20.0

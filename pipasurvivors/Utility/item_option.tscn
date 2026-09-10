@@ -1,67 +1,77 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc8dm1bqf66gw"]
+[gd_scene load_steps=6 format=3 uid="uid://dc8dm1bqf66gw"]
 
 [ext_resource type="Texture2D" uid="uid://ck8bhco5dijdu" path="res://resources/sprites/weaponIcons/sword.png" id="1_gcekk"]
 [ext_resource type="Script" uid="uid://db1mhd8j8oqs1" path="res://Utility/item_option.gd" id="1_k7luv"]
 [ext_resource type="Resource" uid="uid://dsm51ep1luk5c" path="res://Utility/weapons_db.tres" id="2_jyb5d"]
-[ext_resource type="FontFile" uid="uid://cxyuy2f2u2034" path="res://resources/Font/tenderness.otf" id="2_k7luv"]
+[ext_resource type="FontFile" uid="uid://c4evixhmis0d1" path="res://resources/Font/monda.otf" id="4_jyb5d"]
+
+[sub_resource type="FontVariation" id="FontVariation_k7luv"]
+base_font = ExtResource("4_jyb5d")
 
 [node name="ItemOption" type="ColorRect"]
-custom_minimum_size = Vector2(180, 50)
+custom_minimum_size = Vector2(250, 80)
 anchors_preset = -1
 anchor_right = 0.25
 anchor_bottom = 0.039
-offset_bottom = 0.079998
-color = Color(0.621524, 0.621524, 0.621524, 1)
+offset_left = -30.0
+offset_right = 40.0
+offset_bottom = 50.08
+color = Color(0.498039, 0.439216, 0.541176, 1)
 script = ExtResource("1_k7luv")
 weapons_db = ExtResource("2_jyb5d")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 26.0
-offset_bottom = 26.0
-color = Color(0, 0, 0, 1)
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 38.0
+offset_bottom = 36.0
+color = Color(0.384314, 0.333333, 0.396078, 1)
 
 [node name="ItemIcon" type="TextureRect" parent="ColorRect"]
 texture_filter = 1
 layout_mode = 0
-offset_right = 32.0
-offset_bottom = 32.0
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 37.0
+offset_bottom = 36.0
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_gcekk")
 
 [node name="lbl_name" type="Label" parent="."]
+texture_filter = 1
 layout_mode = 0
-offset_left = 39.0
-offset_top = 2.0
-offset_right = 79.0
-offset_bottom = 25.0
-theme_override_fonts/font = ExtResource("2_k7luv")
+offset_left = 45.0
+offset_top = 5.0
+offset_right = 145.0
+offset_bottom = 35.0
+theme_override_fonts/font = SubResource("FontVariation_k7luv")
+theme_override_font_sizes/font_size = 20
 text = "Name"
-horizontal_alignment = 1
+
+[node name="lbl_level" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 130.0
+offset_top = 5.0
+offset_right = 171.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("4_jyb5d")
+theme_override_font_sizes/font_size = 20
+text = "level: 1"
 
 [node name="lbl_description" type="Label" parent="."]
+texture_filter = 1
 layout_mode = 0
-offset_left = 4.0
-offset_top = 27.0
-offset_right = 166.0
-offset_bottom = 48.0
-theme_override_fonts/font = ExtResource("2_k7luv")
-theme_override_font_sizes/font_size = 8
+offset_left = 5.0
+offset_top = 40.0
+offset_right = 244.0
+offset_bottom = 73.0
+theme_override_fonts/font = ExtResource("4_jyb5d")
+theme_override_font_sizes/font_size = 12
 text = "Description of item
 "
 autowrap_mode = 3
-
-[node name="lbl_level" type="Label" parent="."]
-layout_mode = 0
-offset_left = 130.0
-offset_top = 3.0
-offset_right = 170.0
-offset_bottom = 26.0
-theme_override_fonts/font = ExtResource("2_k7luv")
-theme_override_font_sizes/font_size = 12
-text = "level: 1"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

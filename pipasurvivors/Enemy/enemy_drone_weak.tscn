@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dh3j44x0puei8" path="res://Enemy/enemy.gd" id="1_4xw7n"]
 [ext_resource type="Texture2D" uid="uid://co8hdkjh15j12" path="res://resources/sprites/FireOnly2-Sheet.png" id="2_4xw7n"]
-[ext_resource type="Texture2D" uid="uid://cbjyd5y6xi4am" path="res://resources/sprites/OnlyDrone2-Sheet.png" id="2_bb8dg"]
+[ext_resource type="Texture2D" uid="uid://cskh8py4oxsn4" path="res://resources/sprites/OnlyDrone2V2-Sheet-Sheet.png" id="3_4xw7n"]
 [ext_resource type="PackedScene" uid="uid://exgw1ctdddun" path="res://Utility/hurt_box.tscn" id="4_fhu1d"]
 [ext_resource type="PackedScene" uid="uid://dw02vqexp28fh" path="res://Utility/hit_box.tscn" id="5_ukpci"]
 [ext_resource type="AudioStream" uid="uid://cwshg20tglvi0" path="res://resources/audio/enemy/Retro Impact Punch Hurt 01.wav" id="6_7wtu8"]
@@ -118,7 +118,7 @@ libraries = {
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_bb8dg")
+texture = ExtResource("3_4xw7n")
 hframes = 4
 region_rect = Rect2(11.675, 0, 0, 0)
 

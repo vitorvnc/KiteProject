@@ -46,6 +46,7 @@ _data = {
 }
 
 [node name="ExperienceGem" type="Area2D" groups=["loot"]]
+z_index = 1
 scale = Vector2(3, 3)
 collision_layer = 8
 collision_mask = 8
