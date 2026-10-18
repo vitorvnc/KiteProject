@@ -1,12 +1,13 @@
-[gd_scene load_steps=22 format=3 uid="uid://b1la2v8gru4bp"]
+[gd_scene load_steps=23 format=3 uid="uid://b1la2v8gru4bp"]
 
 [ext_resource type="Script" uid="uid://g2dqvewerx1" path="res://Player/pipa.gd" id="1_1hqn8"]
-[ext_resource type="Resource" uid="uid://dsm51ep1luk5c" path="res://Utility/weapons_db.tres" id="2_gknts"]
+[ext_resource type="Resource" uid="uid://dsm51ep1luk5c" path="res://Databases/weapons_db.tres" id="2_gknts"]
 [ext_resource type="Texture2D" uid="uid://cnu6cp36rspgx" path="res://resources/sprites/SpritePipaV4.png" id="3_diuy4"]
 [ext_resource type="PackedScene" uid="uid://exgw1ctdddun" path="res://Utility/hurt_box.tscn" id="4_6nheh"]
 [ext_resource type="AudioStream" uid="uid://bsdicje55iy2i" path="res://resources/audio/dash.wav" id="4_gbw4g"]
 [ext_resource type="Texture2D" uid="uid://dvqvnid2602lu" path="res://resources/images/GUI/ExpProgressBorder.png" id="5_diuy4"]
 [ext_resource type="Texture2D" uid="uid://i8nhuyaogsf5" path="res://resources/images/GUI/ExpProgressIn.png" id="6_ir8iu"]
+[ext_resource type="Texture2D" uid="uid://dso8larbfnbdm" path="res://resources/images/GUI/dangerSign.png" id="6_y3bhs"]
 [ext_resource type="AudioStream" uid="uid://sq5yquvsekhi" path="res://resources/audio/lvlUp.mp3" id="9_quppt"]
 [ext_resource type="FontFile" uid="uid://c4evixhmis0d1" path="res://resources/Font/monda.otf" id="10_gbw4g"]
 [ext_resource type="Texture2D" uid="uid://345t2b55f0pl" path="res://resources/images/GUI/healthbar.png" id="10_iujw8"]
@@ -38,6 +39,7 @@ motion_mode = 1
 slide_on_ceiling = false
 script = ExtResource("1_1hqn8")
 weapons_db = ExtResource("2_gknts")
+max_white_opacity = 0.752
 
 [node name="SpritePipa" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -133,6 +135,23 @@ collision_mask = 8
 shape = SubResource("CircleShape2D_k2mee")
 
 [node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="DangerOverlay" type="ColorRect" parent="GUILayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="DangerSign" type="Sprite2D" parent="GUILayer/DangerOverlay"]
+unique_name_in_owner = true
+position = Vector2(350, 220)
+texture = ExtResource("6_y3bhs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUILayer/DangerOverlay/DangerSign"]
 
 [node name="GUI" type="Control" parent="GUILayer"]
 layout_mode = 3

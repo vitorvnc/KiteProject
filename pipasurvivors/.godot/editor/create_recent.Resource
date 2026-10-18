@@ -1,3 +1,4 @@
+Resource
 Theme
 Shader
 WeaponDatabase

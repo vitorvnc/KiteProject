@@ -1,14 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://dc8dm1bqf66gw"]
+[gd_scene load_steps=8 format=3 uid="uid://dc8dm1bqf66gw"]
 
 [ext_resource type="Texture2D" uid="uid://ck8bhco5dijdu" path="res://resources/sprites/weaponIcons/sword.png" id="1_gcekk"]
 [ext_resource type="Script" uid="uid://db1mhd8j8oqs1" path="res://Utility/item_option.gd" id="1_k7luv"]
-[ext_resource type="Resource" uid="uid://dsm51ep1luk5c" path="res://Utility/weapons_db.tres" id="2_jyb5d"]
+[ext_resource type="Resource" uid="uid://dsm51ep1luk5c" path="res://Databases/weapons_db.tres" id="2_jyb5d"]
 [ext_resource type="FontFile" uid="uid://c4evixhmis0d1" path="res://resources/Font/monda.otf" id="4_jyb5d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyb5d"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2inl"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.764706, 0.141176, 0.329412, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(0.301681, 0.0242628, 0.109937, 1)
+shadow_size = 1
+shadow_offset = Vector2(0.2, 0)
 
 [sub_resource type="FontVariation" id="FontVariation_k7luv"]
 base_font = ExtResource("4_jyb5d")
 
-[node name="ItemOption" type="ColorRect"]
+[node name="ItemOption" type="Panel"]
 custom_minimum_size = Vector2(250, 80)
 anchors_preset = -1
 anchor_right = 0.25
@@ -16,17 +38,17 @@ anchor_bottom = 0.039
 offset_left = -30.0
 offset_right = 40.0
 offset_bottom = 50.08
-color = Color(0.498039, 0.439216, 0.541176, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_jyb5d")
 script = ExtResource("1_k7luv")
 weapons_db = ExtResource("2_jyb5d")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="Panel" parent="."]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 38.0
 offset_bottom = 36.0
-color = Color(0.384314, 0.333333, 0.396078, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_h2inl")
 
 [node name="ItemIcon" type="TextureRect" parent="ColorRect"]
 texture_filter = 1
@@ -43,7 +65,7 @@ texture_filter = 1
 layout_mode = 0
 offset_left = 45.0
 offset_top = 5.0
-offset_right = 145.0
+offset_right = 127.0
 offset_bottom = 35.0
 theme_override_fonts/font = SubResource("FontVariation_k7luv")
 theme_override_font_sizes/font_size = 20
@@ -52,13 +74,14 @@ text = "Name"
 [node name="lbl_level" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 130.0
+offset_left = 139.0
 offset_top = 5.0
-offset_right = 171.0
+offset_right = 240.0
 offset_bottom = 35.0
 theme_override_fonts/font = ExtResource("4_jyb5d")
 theme_override_font_sizes/font_size = 20
 text = "level: 1"
+horizontal_alignment = 2
 
 [node name="lbl_description" type="Label" parent="."]
 texture_filter = 1

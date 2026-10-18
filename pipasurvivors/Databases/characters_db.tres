@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="CharacterDatabase" load_steps=9 format=3 uid="uid://cqxdprf3ak861"]
+
+[ext_resource type="Script" uid="uid://dgt1gehd322ki" path="res://Databases/CharacterData.gd" id="1_cd02u"]
+[ext_resource type="Script" uid="uid://canqbjbf2x1r1" path="res://Databases/CharacterDatabase.gd" id="2_dl488"]
+[ext_resource type="Texture2D" uid="uid://dsu7jpwlcht7g" path="res://resources/images/1.png" id="2_h4rd8"]
+[ext_resource type="Texture2D" uid="uid://cf2cls35lcfpr" path="res://resources/images/2.png" id="3_byrnq"]
+[ext_resource type="Texture2D" uid="uid://dsa3vmdqoy13r" path="res://resources/images/3.png" id="4_2mxyf"]
+
+[sub_resource type="Resource" id="Resource_cd02u"]
+script = ExtResource("1_cd02u")
+id = "char_pedro"
+display_name = "Pedro"
+kite_description = "Pipa verde"
+power_description = "Sonic Boom"
+portrait = ExtResource("2_h4rd8")
+pipa_sprite_path = "D:/GameDev/PipaSurvivors/KiteProject/pipasurvivors/resources/sprites/SpritePipaV4.png"
+starting_weapon_id = "sphereatk_1"
+starting_hp = 80.0
+starting_speed = 50.0
+starting_rotation_speed = 4.5
+metadata/_custom_type_script = "uid://dgt1gehd322ki"
+
+[sub_resource type="Resource" id="Resource_h4rd8"]
+script = ExtResource("1_cd02u")
+id = "char_enrico"
+display_name = "Enrico"
+kite_description = "Pipa rosa"
+power_description = "Onda mental"
+portrait = ExtResource("3_byrnq")
+pipa_sprite_path = "D:/GameDev/PipaSurvivors/KiteProject/pipasurvivors/resources/sprites/SpritePipaV4.png"
+starting_weapon_id = "waveatk_1"
+starting_hp = 100.0
+starting_speed = 45.0
+starting_rotation_speed = 4.0
+metadata/_custom_type_script = "uid://dgt1gehd322ki"
+
+[sub_resource type="Resource" id="Resource_byrnq"]
+script = ExtResource("1_cd02u")
+id = "char_gabriel"
+display_name = "Gabriel"
+kite_description = "Pipa vermelha"
+power_description = "Corte lateral"
+portrait = ExtResource("4_2mxyf")
+pipa_sprite_path = "D:/GameDev/PipaSurvivors/KiteProject/pipasurvivors/resources/sprites/SpritePipaV4.png"
+starting_weapon_id = "whipatk_1"
+starting_hp = 70.0
+starting_speed = 60.0
+starting_rotation_speed = 5.0
+metadata/_custom_type_script = "uid://dgt1gehd322ki"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_dl488")
+characters = Array[ExtResource("1_cd02u")]([SubResource("Resource_cd02u"), SubResource("Resource_h4rd8"), SubResource("Resource_byrnq")])

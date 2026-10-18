@@ -143,6 +143,7 @@ collision_mask = 4
 HurtBoxType = 1
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
+visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ncf7h")
 debug_color = Color(0.905, 0, 0.748, 0.381)
@@ -153,6 +154,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
+visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_m6jha")
 debug_color = Color(0, 0.289, 0.75, 0.392)

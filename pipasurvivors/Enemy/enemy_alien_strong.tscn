@@ -132,25 +132,30 @@ libraries = {
 autoplay = "walk"
 
 [node name="CollisionEnemy" type="CollisionShape2D" parent="."]
+visible = false
 z_as_relative = false
 position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_px1sc")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_d6ev0")]
+visible = false
 position = Vector2(0, -5)
 collision_layer = 4
 collision_mask = 4
 HurtBoxType = 1
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
+visible = false
 shape = SubResource("CapsuleShape2D_ncf7h")
 debug_color = Color(0.905, 0, 0.748, 0.381)
 
 [node name="HitBox" parent="." instance=ExtResource("4_cnfdb")]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
+visible = false
 position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_m6jha")
 debug_color = Color(0, 0.289, 0.75, 0.392)

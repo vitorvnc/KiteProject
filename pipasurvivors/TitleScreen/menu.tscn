@@ -1,10 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmbehx6s81dpo"]
+[gd_scene load_steps=10 format=3 uid="uid://cmbehx6s81dpo"]
 
 [ext_resource type="Script" uid="uid://s6j7wtijeeks" path="res://TitleScreen/menu.gd" id="1_t4alp"]
 [ext_resource type="Texture2D" uid="uid://bonvpx6mg4rxy" path="res://resources/images/MenuStart.png" id="2_cxswi"]
 [ext_resource type="FontFile" uid="uid://c4evixhmis0d1" path="res://resources/Font/monda.otf" id="2_t4alp"]
 [ext_resource type="PackedScene" uid="uid://1umn4koqeqy8" path="res://resources/Font/basic_button.tscn" id="3_cxswi"]
 [ext_resource type="Texture2D" uid="uid://cpx7hh2o1orce" path="res://resources/images/Pipa-vs-aliens-02.png" id="3_yf0qj"]
+
+[sub_resource type="Gradient" id="Gradient_yf0qj"]
+colors = PackedColorArray(0.317647, 0.627451, 0.901961, 1, 0.533333, 0.933333, 0.886275, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0eg15"]
+gradient = SubResource("Gradient_yf0qj")
+
+[sub_resource type="ImageTexture" id="ImageTexture_yf0qj"]
+
+[sub_resource type="FontVariation" id="FontVariation_yf0qj"]
+base_font = ExtResource("2_t4alp")
+spacing_glyph = 7
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -62,7 +74,7 @@ offset_top = 734.0
 offset_right = 589.0
 offset_bottom = 894.0
 theme_override_font_sizes/font_size = 50
-text = "Start
+text = "New Game
 "
 
 [node name="btn_exit" parent="." instance=ExtResource("3_cxswi")]
@@ -74,5 +86,149 @@ offset_bottom = 1094.0
 theme_override_font_sizes/font_size = 50
 text = "Quit"
 
+[node name="GUI_CharSelect" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CharSelect" type="Panel" parent="GUI_CharSelect"]
+unique_name_in_owner = true
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 2
+layout_mode = 0
+offset_left = 800.0
+offset_top = 500.0
+offset_right = 1300.0
+offset_bottom = 1520.0
+
+[node name="TextureRect" type="TextureRect" parent="GUI_CharSelect/CharSelect"]
+layout_mode = 0
+offset_left = 500.0
+offset_right = 1520.0
+offset_bottom = 500.0
+rotation = 1.5708
+texture = SubResource("GradientTexture1D_0eg15")
+
+[node name="lblCharSelect" type="Label" parent="GUI_CharSelect/CharSelect"]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 499.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(0.835294, 0.878431, 0.294118, 1)
+theme_override_colors/font_shadow_color = Color(0.764706, 0.141176, 0.329412, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("2_t4alp")
+theme_override_font_sizes/font_size = 49
+text = "Choose your Kite Flyer"
+horizontal_alignment = 1
+
+[node name="CharacterPreview" type="Control" parent="GUI_CharSelect/CharSelect"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CharPortrait" type="TextureRect" parent="GUI_CharSelect/CharSelect/CharacterPreview"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 110.0
+offset_top = 170.0
+offset_right = 390.0
+offset_bottom = 450.0
+texture = SubResource("ImageTexture_yf0qj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="lblCharacterName" type="Label" parent="GUI_CharSelect/CharSelect/CharacterPreview"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 100.0
+offset_top = 500.0
+offset_right = 400.0
+offset_bottom = 550.0
+theme_override_colors/font_shadow_color = Color(0.3735, 0.533275, 0.83, 1)
+theme_override_colors/font_outline_color = Color(0.614214, 0.106404, 0.270273, 1)
+theme_override_constants/shadow_offset_x = 7
+theme_override_constants/outline_size = 14
+theme_override_fonts/font = SubResource("FontVariation_yf0qj")
+theme_override_font_sizes/font_size = 40
+text = "NOME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="lblPower" type="Label" parent="GUI_CharSelect/CharSelect/CharacterPreview"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 64.0
+offset_top = 551.0
+offset_right = 424.0
+offset_bottom = 591.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_t4alp")
+theme_override_font_sizes/font_size = 28
+text = "Power:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="lblKite" type="Label" parent="GUI_CharSelect/CharSelect/CharacterPreview"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 63.0
+offset_top = 599.0
+offset_right = 423.0
+offset_bottom = 639.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_t4alp")
+theme_override_font_sizes/font_size = 28
+text = "Kite:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btn_prev" type="Button" parent="GUI_CharSelect/CharSelect"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 40.0
+offset_top = 280.0
+offset_right = 83.0
+offset_bottom = 372.0
+theme_override_font_sizes/font_size = 60
+text = "<"
+
+[node name="btn_next" type="Button" parent="GUI_CharSelect/CharSelect"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 420.0
+offset_top = 280.0
+offset_right = 463.0
+offset_bottom = 372.0
+theme_override_font_sizes/font_size = 60
+text = ">"
+
+[node name="btn_choose" parent="GUI_CharSelect/CharSelect" instance=ExtResource("3_cxswi")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 90.0
+offset_top = 760.0
+offset_right = 390.0
+offset_bottom = 860.0
+theme_override_font_sizes/font_size = 50
+text = "Start
+"
+
+[node name="btn_back" parent="GUI_CharSelect/CharSelect" instance=ExtResource("3_cxswi")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 90.0
+offset_top = 900.0
+offset_right = 390.0
+offset_bottom = 1000.0
+theme_override_font_sizes/font_size = 50
+text = "Back
+"
+
 [connection signal="click_end" from="btn_play" to="." method="_on_btn_play_click_end"]
 [connection signal="click_end" from="btn_exit" to="." method="_on_btn_exit_click_end"]
+[connection signal="pressed" from="GUI_CharSelect/CharSelect/btn_prev" to="." method="_on_btn_prev_pressed"]
+[connection signal="pressed" from="GUI_CharSelect/CharSelect/btn_next" to="." method="_on_btn_next_pressed"]
+[connection signal="pressed" from="GUI_CharSelect/CharSelect/btn_choose" to="." method="_on_btn_choose_pressed"]
+[connection signal="pressed" from="GUI_CharSelect/CharSelect/btn_back" to="." method="_on_btn_back_pressed"]

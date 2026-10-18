@@ -6,8 +6,6 @@ extends CharacterBody2D
 @export var maxhp = 80.0
 @export var movement_speed = 50.0
 @export var rotation_speed = 4.5
-@export var upper_limit: float = -20 #LIMITE SUPERIOR DA TELA
-@export var lower_limit: float = 1300 #LIMITE INFERIOR DA TELA
 @onready var walkTimer = get_node("%walkAnimationTimer")
 @onready var sprite = $SpritePipa
 @onready var collisionPipa = $CollisionPipa
@@ -58,6 +56,26 @@ var dash_particles: GPUParticles2D  # Opcional: para efeito visual
 @onready var sndVictory = get_node ("%snd_victory")
 @onready var sndLose = get_node ("%snd_lose")
 
+# ZONA DE PERIGO (limites superior/inferior)
+@export_group("Danger Zone")
+@export var danger_zone_size: float = 300.0  # Distância dos limites onde começa o fade
+@export var upper_limit: float = -50 #LIMITE SUPERIOR DA TELA
+@export var lower_limit: float = 1350 #LIMITE INFERIOR DA TELA
+@export_range(0.0, 1.0) var max_white_opacity: float = 0.75  # Máx de branco antes de morrer
+@export_range(0.0, 1.0) var death_white_opacity: float = 0.99  # Branco quando morre
+@onready var danger_overlay: ColorRect = get_node("%DangerOverlay")
+var danger_tween: Tween
+
+# SINAL DE PERIGO (novo)
+@export_subgroup("Danger Sign")
+@export var danger_sign_pulse_speed: float = 6.0       # Velocidade do pisca-pisca
+@export_range(0.0, 1.0) var danger_sign_min_alpha: float = 0.3  # Opacidade mínima do pulso
+@export_range(0.0, 1.0) var danger_sign_max_alpha: float = 1.0  # Opacidade máxima do pulso
+@onready var danger_sign: Sprite2D = get_node("%DangerSign")
+var danger_pulse_time: float = 0.0
+
+
+
 #tabela grid com upgrades e weapons
 @onready var collectedWeapons = get_node("%CollectedWeapons")
 @onready var collectedUpgrades = get_node("%CollectedUpgrades")
@@ -85,7 +103,21 @@ func _ready():
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0,0,0)
 	attack_spawn_point = $AttackSpawnPoint
-	var weapon = load("res://Utility/weapons_db.tres::Resource_mqtek")
+	var weapon = load("res://Databases/weapons_db.tres::Resource_mqtek")
+	
+	#CARREGA O CHAR SELECIONADO
+	if GameState.selected_character:
+		var weapon_id = GameState.selected_character.starting_weapon_id
+		var weapon_data = weapons_db.get_weapon_by_id(weapon_id)
+		if weapon_data:
+			starting_weapons = [{'id': weapon_id, 'level': 1}]
+		
+		# Aplica stats do personagem
+		maxhp = GameState.selected_character.starting_hp
+		hp = maxhp
+		movement_speed = GameState.selected_character.starting_speed
+		rotation_speed = GameState.selected_character.starting_rotation_speed
+		
 	load_starting_weapons()
 	
 		# Salva a velocidade original
@@ -107,6 +139,15 @@ func _physics_process(delta: float) -> void:
 	var y_altura = global_position.y
 	handle_rotation()
 	movement()
+	
+	#Atualiza o overlay de perigo
+	update_danger_overlay(y_altura, delta)
+	
+	#Verifica se morreu pelos limites
+	if y_altura < upper_limit or y_altura > lower_limit:
+		if not get_tree().paused:  # Evita chamar death() várias vezes
+			death_by_bounds()
+		return  # Para de processar o resto
 
 	# Input do dash (apenas uma vez quando pressiona espaço)
 	if Input.is_action_just_pressed("spacebar") and dash_enabled and not is_dashing and dash_cooldown_timer <= 0:
@@ -640,7 +681,80 @@ func adjust_gui_collection(upgrade):
 				"upgrade":
 					collectedUpgrades.add_child(new_item)
 
+#Atualiza a opacidade do overlay conforme proximidade dos limites
+func update_danger_overlay(y_altura: float, delta:float):
+	if not danger_overlay:
+		return
+	
+	var danger_intensity = 0.0
+	
+	# Calcula intensidade pelo limite SUPERIOR
+	if y_altura < (upper_limit + danger_zone_size):
+		var distance_to_top = y_altura - upper_limit  # Pode ser negativo se passou
+		var normalized = 1.0 - clamp(distance_to_top / danger_zone_size, 0.0, 1.0)
+		danger_intensity = max(danger_intensity, normalized)
+	
+	# Calcula intensidade pelo limite INFERIOR
+	if y_altura > (lower_limit - danger_zone_size):
+		var distance_to_bottom = lower_limit - y_altura
+		var normalized = 1.0 - clamp(distance_to_bottom / danger_zone_size, 0.0, 1.0)
+		danger_intensity = max(danger_intensity, normalized)
+	
+	# Aplica suavização (ease in quadrado para ser mais intenso perto do limite)
+	danger_intensity = pow(danger_intensity, 2.0)
+	# Aplica opacidade — respeitando o máximo do inspector
+	danger_overlay.color.a = danger_intensity * max_white_opacity
+	# Atualiza o sinal de perigo (pulsante)
+	update_danger_sign(danger_intensity, delta)
+
+#Controla o sinal de perigo pulsante
+func update_danger_sign(danger_intensity: float, delta: float):
+	if not danger_sign:
+		return
+	
+	# Esconde o sinal quando não há perigo
+	if danger_intensity <= 0.01:
+		danger_sign.visible = false
+		danger_pulse_time = 0.0
+		return
+	
+	danger_sign.visible = true
+	
+	# Avança o tempo do pulso (mais rápido conforme o perigo aumenta)
+	danger_pulse_time += delta * danger_sign_pulse_speed * (0.5 + danger_intensity)
+	
+	# Pulso senoidal: 0 → 1 → 0 → 1...
+	var pulse = sin(danger_pulse_time) * 0.5 + 0.5  # 0 a 1
+	
+	# Combina min/max do pulso
+	var pulse_alpha = lerp(danger_sign_min_alpha, danger_sign_max_alpha, pulse)
+	
+	# Aplica a intensidade do perigo (o sinal fica mais visível conforme o perigo aumenta)
+	danger_sign.modulate.a = pulse_alpha * danger_intensity
+	
+#Morte por ultrapassar os limites
+func death_by_bounds():
+	# Impede múltiplas chamadas
+	if get_tree().paused:
+		return
+	
+	# Some o sinal de perigo suavemente
+	if danger_sign:
+		var sign_tween = create_tween()
+		sign_tween.tween_property(danger_sign, "modulate:a", 0.0, 0.3)
+		
+	# Anima o overlay até ficar totalmente branco
+	if danger_overlay:
+		var tween = create_tween()
+		tween.tween_property(danger_overlay, "color:a", death_white_opacity, 0.3).set_ease(Tween.EASE_IN)
+		await tween.finished
+	
+	# Chama a morte normal
+	hp = 0
+	death()
+	
 func death():
+	print("entrou death")
 	deathPanel.visible = true
 	emit_signal("playerdeath")
 	get_tree().paused = true
@@ -656,5 +770,10 @@ func death():
 
 func _on_btn_menu_click_end() -> void:
 	get_tree().paused = false
+	if danger_overlay:
+		danger_overlay.color.a = 0.0
+	if danger_sign:
+		danger_sign.modulate.a = 0.0
+		danger_sign.visible = false
 	var _level = get_tree().change_scene_to_file("res://TitleScreen/menu.tscn")
 #endregion

@@ -1,4 +1,4 @@
-extends ColorRect
+extends Panel
 
 const ICON_PATH = "res://resources/Icons/"
 @export var weapons_db: WeaponDatabase
@@ -20,7 +20,7 @@ func _ready():
 		item = weapons_db.get_weapon_by_id("glue")
 	lblName.text = item.display_name
 	lblDescription.text = item.description
-	lblLevel.text = str(item.level)
+	lblLevel.text = "level: " + str(item.level)
 	itemIcon.texture = load(item.icon)
 
 func _input(event):
