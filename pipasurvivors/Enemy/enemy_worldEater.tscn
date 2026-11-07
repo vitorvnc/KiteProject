@@ -138,7 +138,7 @@ collision_mask = 5
 script = ExtResource("1_cljdu")
 hp = 99999
 knockback_recovery = 150.0
-movement_speed = 100.0
+movement_speed = 130.0
 experience = 100
 enemy_damage = 1
 

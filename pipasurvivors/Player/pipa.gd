@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var sprite = $SpritePipa
 @onready var collisionPipa = $CollisionPipa
 
+
 var time = 0
 var experience = 0
 var experience_level = 1
@@ -100,6 +101,13 @@ signal playerdeath
 
 #region FUNCTIONS
 func _ready():
+	if GameState.selected_character and GameState.selected_character.pipa_sprite_path != "":
+		var new_texture = load(GameState.selected_character.pipa_sprite_path)
+		if new_texture:
+			sprite.texture = new_texture
+		else:
+			push_warning("Não foi possível carregar a textura da pipa no caminho: ", GameState.selected_character.pipa_sprite_path)
+	
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0,0,0)
 	attack_spawn_point = $AttackSpawnPoint

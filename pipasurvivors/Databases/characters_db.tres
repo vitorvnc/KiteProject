@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="CharacterDatabase" load_steps=9 format=3 uid="uid://cqxdprf3ak861"]
 
 [ext_resource type="Script" uid="uid://dgt1gehd322ki" path="res://Databases/CharacterData.gd" id="1_cd02u"]
+[ext_resource type="Texture2D" uid="uid://bnuh3hni857ca" path="res://resources/images/Char1.png" id="2_byrnq"]
 [ext_resource type="Script" uid="uid://canqbjbf2x1r1" path="res://Databases/CharacterDatabase.gd" id="2_dl488"]
-[ext_resource type="Texture2D" uid="uid://dsu7jpwlcht7g" path="res://resources/images/1.png" id="2_h4rd8"]
-[ext_resource type="Texture2D" uid="uid://cf2cls35lcfpr" path="res://resources/images/2.png" id="3_byrnq"]
-[ext_resource type="Texture2D" uid="uid://dsa3vmdqoy13r" path="res://resources/images/3.png" id="4_2mxyf"]
+[ext_resource type="Texture2D" uid="uid://bxn2ttw8oomj5" path="res://resources/images/char2.png" id="3_2mxyf"]
+[ext_resource type="Texture2D" uid="uid://uc0gdwu6pl3x" path="res://resources/images/char3.png" id="4_e0e5x"]
 
 [sub_resource type="Resource" id="Resource_cd02u"]
 script = ExtResource("1_cd02u")
@@ -12,7 +12,7 @@ id = "char_pedro"
 display_name = "Pedro"
 kite_description = "Pipa verde"
 power_description = "Sonic Boom"
-portrait = ExtResource("2_h4rd8")
+portrait = ExtResource("2_byrnq")
 pipa_sprite_path = "D:/GameDev/PipaSurvivors/KiteProject/pipasurvivors/resources/sprites/SpritePipaV4.png"
 starting_weapon_id = "sphereatk_1"
 starting_hp = 80.0
@@ -23,11 +23,11 @@ metadata/_custom_type_script = "uid://dgt1gehd322ki"
 [sub_resource type="Resource" id="Resource_h4rd8"]
 script = ExtResource("1_cd02u")
 id = "char_enrico"
-display_name = "Enrico"
+display_name = "Marina"
 kite_description = "Pipa rosa"
 power_description = "Onda mental"
-portrait = ExtResource("3_byrnq")
-pipa_sprite_path = "D:/GameDev/PipaSurvivors/KiteProject/pipasurvivors/resources/sprites/SpritePipaV4.png"
+portrait = ExtResource("3_2mxyf")
+pipa_sprite_path = "D:/GameDev/PipaSurvivors/KiteProject/pipasurvivors/resources/sprites/PipaRosa.png"
 starting_weapon_id = "waveatk_1"
 starting_hp = 100.0
 starting_speed = 45.0
@@ -40,8 +40,8 @@ id = "char_gabriel"
 display_name = "Gabriel"
 kite_description = "Pipa vermelha"
 power_description = "Corte lateral"
-portrait = ExtResource("4_2mxyf")
-pipa_sprite_path = "D:/GameDev/PipaSurvivors/KiteProject/pipasurvivors/resources/sprites/SpritePipaV4.png"
+portrait = ExtResource("4_e0e5x")
+pipa_sprite_path = "D:/GameDev/PipaSurvivors/KiteProject/pipasurvivors/resources/sprites/PipaAzul.png"
 starting_weapon_id = "whipatk_1"
 starting_hp = 70.0
 starting_speed = 60.0

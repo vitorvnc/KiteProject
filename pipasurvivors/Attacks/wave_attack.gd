@@ -76,10 +76,15 @@ func enemy_hit(charge = 1):
 		emit_signal("remove_from_array", self)
 		queue_free()
 		
-func get_knockback_direction() -> Vector2:
-	# Para whip attack, o knockback é sempre para frente do player
-	#var parent_rotation = get_parent().rotation
-	return Vector2.UP.rotated(get_parent().rotation)
+func get_angleknockback_direction(body: Node2D) -> Vector2:
+	# Calcula o vetor que vai do centro (player) até o inimigo
+	var direction_away = (body.global_position - get_parent().global_position).normalized()
+	
+	# Fallback de segurança caso o inimigo esteja exatamente no centro (vetor zero)
+	if direction_away == Vector2.ZERO:
+		direction_away = Vector2.UP.rotated(get_parent().rotation)
+		
+	return direction_away
 	
 func _on_body_entered(body: Node2D) -> void:
 	print('entrou wave body')
@@ -91,7 +96,7 @@ func _on_body_entered(body: Node2D) -> void:
 			
 		# Aplica knockback
 		if body.has_method("take_knockback"):
-			var knockback_direction = get_knockback_direction()
+			var knockback_direction = get_angleknockback_direction(body)
 			body.take_knockback(knockback_direction, current_knockback)
 			
 		if has_method("enemy_hit"):

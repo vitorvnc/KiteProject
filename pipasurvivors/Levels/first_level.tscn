@@ -18,11 +18,11 @@
 [ext_resource type="Texture2D" uid="uid://cj64llx5osko4" path="res://resources/images/Nuvens/Cloud-43.png" id="13_8dylp"]
 [ext_resource type="PackedScene" uid="uid://brgvnb8i66r73" path="res://Player/procedural_animation_testToScene.tscn" id="13_dswuj"]
 [ext_resource type="Texture2D" uid="uid://bvw5od43p37jq" path="res://resources/images/Nuvens/Cloud-21.png" id="14_o3pwb"]
+[ext_resource type="AudioStream" uid="uid://c6hqmq1p1s4b1" path="res://resources/Music/funkPipa_v1.mp3" id="16_e2d80"]
 [ext_resource type="PackedScene" uid="uid://6obrgp118fsw" path="res://Enemy/enemy_drone_weak.tscn" id="16_hwqrs"]
 [ext_resource type="PackedScene" uid="uid://bkp278a2kdg4r" path="res://Enemy/enemy_drone_strong.tscn" id="17_1to82"]
 [ext_resource type="PackedScene" uid="uid://cke77ugx4bb1" path="res://Enemy/enemy_alien_weak.tscn" id="18_e2d80"]
 [ext_resource type="PackedScene" uid="uid://cgl0c4xbx2522" path="res://Enemy/enemy_alien_strong.tscn" id="19_vllf0"]
-[ext_resource type="AudioStream" uid="uid://6sy26ckxxv4k" path="res://resources/audio/battleThemeA.mp3" id="22_1to82"]
 [ext_resource type="PackedScene" uid="uid://dpbbqqg6i7uyo" path="res://Enemy/enemy_worldEater.tscn" id="23_1to82"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yosxb"]
@@ -258,44 +258,44 @@ height = 10.0
 
 [sub_resource type="Resource" id="Resource_xx7oe"]
 script = ExtResource("6_yosxb")
-time_start = 240
-time_end = 241
+time_start = 181
+time_end = 260
 enemy = ExtResource("16_hwqrs")
-enemy_num = 1
-enemy_spawn_delay = 0
+enemy_num = 2
+enemy_spawn_delay = 1
 metadata/_custom_type_script = "uid://b52gp36wo8n6y"
 
 [sub_resource type="Resource" id="Resource_8dylp"]
 script = ExtResource("6_yosxb")
-time_start = 240
-time_end = 241
+time_start = 195
+time_end = 260
 enemy = ExtResource("17_1to82")
 enemy_num = 1
-enemy_spawn_delay = 0
+enemy_spawn_delay = 3
 metadata/_custom_type_script = "uid://b52gp36wo8n6y"
 
 [sub_resource type="Resource" id="Resource_o3pwb"]
 script = ExtResource("6_yosxb")
-time_start = 240
-time_end = 240
+time_start = 205
+time_end = 280
 enemy = ExtResource("18_e2d80")
 enemy_num = 1
-enemy_spawn_delay = 0
+enemy_spawn_delay = 5
 metadata/_custom_type_script = "uid://b52gp36wo8n6y"
 
 [sub_resource type="Resource" id="Resource_o4voy"]
 script = ExtResource("6_yosxb")
-time_start = 240
-time_end = 240
+time_start = 230
+time_end = 290
 enemy = ExtResource("19_vllf0")
 enemy_num = 1
-enemy_spawn_delay = 0
+enemy_spawn_delay = 5
 metadata/_custom_type_script = "uid://b52gp36wo8n6y"
 
 [sub_resource type="Resource" id="Resource_e2d80"]
 script = ExtResource("6_yosxb")
-time_start = 259
-time_end = 259
+time_start = 299
+time_end = 299
 enemy = ExtResource("23_1to82")
 enemy_num = 1
 enemy_spawn_delay = 0
@@ -522,13 +522,13 @@ experience = 10
 
 [node name="snd_Music" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-stream = ExtResource("22_1to82")
-volume_db = -20.0
-pitch_scale = 1.1
+stream = ExtResource("16_e2d80")
+volume_db = -6.552
+autoplay = true
 script = ExtResource("11_spvbh")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("5_1oe6y")]
 spawns = Array[ExtResource("6_yosxb")]([SubResource("Resource_xx7oe"), SubResource("Resource_8dylp"), SubResource("Resource_o3pwb"), SubResource("Resource_o4voy"), SubResource("Resource_e2d80")])
-time = 239
+time = 180
 
 [connection signal="playerdeath" from="Pipa" to="snd_Music" method="_on_pipa_playerdeath"]

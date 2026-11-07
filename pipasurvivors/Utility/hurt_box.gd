@@ -36,6 +36,10 @@ func _on_area_entered(area):
 				angle = area.get_knockback_direction()
 			#if not area.get("angle") == null:
 				#angle = area.angle
+			elif area.has_method("get_angleknockback_direction"):
+				angle = area.get_angleknockback_direction(area)
+			#if not area.get("angle") == null:
+				#angle = area.angle
 				
 			if not area.get("knockback_force") == null:
 				knockback = area.knockback_force
