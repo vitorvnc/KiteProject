@@ -83,24 +83,24 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_px1sc"]
-radius = 38.0
-height = 76.8
+radius = 37.0
+height = 76.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7kdtb"]
-radius = 15.2
-height = 46.4
+radius = 15.0
+height = 46.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sd3si"]
-radius = 15.2
-height = 46.4
+radius = 15.0
+height = 46.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bhyx7"]
-radius = 25.2
-height = 52.0
+radius = 23.0
+height = 70.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4bp81"]
-radius = 26.4
-height = 58.4
+radius = 23.0
+height = 70.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ncf7h"]
 radius = 46.0
@@ -108,28 +108,27 @@ height = 104.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cljdu"]
 resource_local_to_scene = true
-radius = 38.4
-height = 76.8
+radius = 37.0
+height = 76.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mjkqm"]
-resource_local_to_scene = true
-radius = 26.4
-height = 59.2
+radius = 23.0
+height = 70.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h4kbw"]
 resource_local_to_scene = true
-radius = 26.4
-height = 59.2
+radius = 23.0
+height = 70.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1iud"]
 resource_local_to_scene = true
-radius = 16.0
-height = 51.2
+radius = 15.6
+height = 46.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wdo76"]
 resource_local_to_scene = true
-radius = 16.0
-height = 51.2
+radius = 15.0
+height = 46.0
 
 [node name="enemy_worldEater" type="CharacterBody2D" groups=["enemy"]]
 scale = Vector2(2.5, 2.5)
@@ -141,6 +140,7 @@ knockback_recovery = 150.0
 movement_speed = 130.0
 experience = 100
 enemy_damage = 1
+is_boss = true
 
 [node name="FogoBody" type="CharacterBody2D" parent="."]
 visible = false
@@ -173,27 +173,29 @@ autoplay = "walk"
 
 [node name="CollisionEnemy" type="CollisionShape2D" parent="."]
 z_as_relative = false
-position = Vector2(0, -5.6)
+position = Vector2(0, -5.2)
 shape = SubResource("CapsuleShape2D_px1sc")
 
 [node name="CollisionGarraEsquerda" type="CollisionShape2D" parent="."]
 z_as_relative = false
-position = Vector2(-42.4, -34)
+position = Vector2(-44.8, -38)
 shape = SubResource("CapsuleShape2D_7kdtb")
 
 [node name="CollisionGarraDireita" type="CollisionShape2D" parent="."]
 z_as_relative = false
-position = Vector2(44.4, -34)
+position = Vector2(44, -38)
 shape = SubResource("CapsuleShape2D_sd3si")
 
 [node name="CollisionGarraInferiorEsquerda" type="CollisionShape2D" parent="."]
 z_as_relative = false
-position = Vector2(-26.4, 36.4)
+position = Vector2(-30, 28)
+rotation = 0.436332
 shape = SubResource("CapsuleShape2D_bhyx7")
 
 [node name="CollisionGarraInferiorDireita" type="CollisionShape2D" parent="."]
 z_as_relative = false
-position = Vector2(23.6, 34)
+position = Vector2(30, 28)
+rotation = -0.436332
 shape = SubResource("CapsuleShape2D_4bp81")
 
 [node name="HurtBox" parent="." instance=ExtResource("4_g1iud")]
@@ -216,42 +218,44 @@ position = Vector2(-5.96046e-08, -5.2)
 shape = SubResource("CapsuleShape2D_cljdu")
 debug_color = Color(0, 0.289, 0.75, 0.392)
 
-[node name="HitBox2" parent="." instance=ExtResource("5_wdo76")]
+[node name="HitBox_GarraDireita_Inferior" parent="." instance=ExtResource("5_wdo76")]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" parent="HitBox2" index="0"]
-position = Vector2(24, 34)
+[node name="CollisionShape2D" parent="HitBox_GarraDireita_Inferior" index="0"]
+position = Vector2(30, 28)
+rotation = -0.436332
+scale = Vector2(1, 1)
 shape = SubResource("CapsuleShape2D_mjkqm")
 debug_color = Color(0, 0.289, 0.75, 0.392)
 
-[node name="HitBox3" parent="." instance=ExtResource("5_wdo76")]
-position = Vector2(-50, -0.4)
+[node name="HitBox_GarraEsquerda_Inferior" parent="." instance=ExtResource("5_wdo76")]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" parent="HitBox3" index="0"]
-position = Vector2(24, 34)
+[node name="CollisionShape2D" parent="HitBox_GarraEsquerda_Inferior" index="0"]
+position = Vector2(-30, 28)
+rotation = 0.436332
 shape = SubResource("CapsuleShape2D_h4kbw")
 debug_color = Color(0, 0.289, 0.75, 0.392)
 
-[node name="HitBox4" parent="." instance=ExtResource("5_wdo76")]
+[node name="HitBox_GarraEsquerda" parent="." instance=ExtResource("5_wdo76")]
 position = Vector2(-60.8, -67.6)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" parent="HitBox4" index="0"]
-position = Vector2(18, 32)
+[node name="CollisionShape2D" parent="HitBox_GarraEsquerda" index="0"]
+position = Vector2(16, 29.6)
 shape = SubResource("CapsuleShape2D_g1iud")
 debug_color = Color(0, 0.289, 0.75, 0.392)
 
-[node name="HitBox5" parent="." instance=ExtResource("5_wdo76")]
+[node name="HitBox_GarraDireita" parent="." instance=ExtResource("5_wdo76")]
 position = Vector2(-60.8, -67.6)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" parent="HitBox5" index="0"]
-position = Vector2(105.2, 32)
+[node name="CollisionShape2D" parent="HitBox_GarraDireita" index="0"]
+position = Vector2(104.8, 29.6)
 shape = SubResource("CapsuleShape2D_wdo76")
 debug_color = Color(0, 0.289, 0.75, 0.392)
 
@@ -264,7 +268,7 @@ pitch_scale = 0.51
 
 [editable path="HurtBox"]
 [editable path="HitBox"]
-[editable path="HitBox2"]
-[editable path="HitBox3"]
-[editable path="HitBox4"]
-[editable path="HitBox5"]
+[editable path="HitBox_GarraDireita_Inferior"]
+[editable path="HitBox_GarraEsquerda_Inferior"]
+[editable path="HitBox_GarraEsquerda"]
+[editable path="HitBox_GarraDireita"]

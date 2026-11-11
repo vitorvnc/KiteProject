@@ -158,7 +158,7 @@ attack_size = 1.0
 spawn_point_path = NodePath("")
 is_child_attack = false
 knockback_direction = Vector2(0, -1)
-upgrade_ammount = 20.0
+upgrade_ammount = 10.0
 metadata/_custom_type_script = "uid://fprfeqjchw67"
 
 [sub_resource type="Resource" id="Resource_hav8d"]

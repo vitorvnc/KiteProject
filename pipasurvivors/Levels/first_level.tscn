@@ -529,6 +529,6 @@ script = ExtResource("11_spvbh")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("5_1oe6y")]
 spawns = Array[ExtResource("6_yosxb")]([SubResource("Resource_xx7oe"), SubResource("Resource_8dylp"), SubResource("Resource_o3pwb"), SubResource("Resource_o4voy"), SubResource("Resource_e2d80")])
-time = 180
+time = 302
 
 [connection signal="playerdeath" from="Pipa" to="snd_Music" method="_on_pipa_playerdeath"]

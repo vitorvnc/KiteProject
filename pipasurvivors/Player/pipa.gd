@@ -451,6 +451,8 @@ func add_weapon(weapon_data: WeaponData):
 				movement_speed += weapon_data.upgrade_ammount
 			"armor":
 				armor += weapon_data.upgrade_ammount
+			"glue":
+				hp += weapon_data.upgrade_ammount
 		collected_weapons.append({
 			"data": weapon_data,
 			"timer": null,
@@ -497,6 +499,8 @@ func _on_enemy_detection_area_body_exited(body: Node2D) -> void:
 		enemy_close.erase(body)
 
 func update_target_enemy():
+	if target_enemy != null and not is_instance_valid(target_enemy):
+		target_enemy = null
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	if enemies.size() > 0:
 		 # Encontra o inimigo mais próximo
@@ -767,7 +771,7 @@ func death():
 	emit_signal("playerdeath")
 	get_tree().paused = true
 	var tween = deathPanel.create_tween()
-	tween.tween_property(deathPanel, "position", Vector2(100,120), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(deathPanel, "position", Vector2(100,300), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.play()
 	if time >= 300:
 		lblResult.text = "You Win"

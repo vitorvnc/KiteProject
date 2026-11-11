@@ -6,10 +6,11 @@ extends CharacterBody2D
 @export var experience = 1
 @export var enemy_damage = 10
 var knockback = Vector2.ZERO
-
+@export var is_boss = false
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite = $Sprite2D
+var flash_tween: Tween #tween pro flash de dano
 @onready var collisionEnemy = $CollisionEnemy
 @onready var anim = $Sprite2D/AnimationPlayer
 
@@ -65,6 +66,10 @@ func death():
 	queue_free()
 	
 func take_damage(amount: float):
+	if !is_boss:
+		sprite_flash()
+	#anim.play("hit")
+	
 	hp -= amount
 	if hp <= 0:
 		death()
@@ -73,7 +78,13 @@ func take_damage(amount: float):
 
 func take_knockback(direction: Vector2, force: float):
 	knockback = direction * force	
-
+	
+func sprite_flash() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(sprite, "modulate:v", 1.00, 0.25).from(15)
+	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	
+	
 func _on_hurt_box_hurt(damage, angle, knockback_force):
 	#print('entrou no hurtbox do enemy', damage, angle, knockback_force)
 	take_damage(damage)
